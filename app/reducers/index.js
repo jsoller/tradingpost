@@ -13,12 +13,13 @@ const getProduct = (state, id) => fromQuickProducts.getProduct(state.quickproduc
 var taxRate = 675;
 var taxInd = 1;
 
-export const getPreTaxTotal = state =>
-  getAddedIds(state)
+export const getPreTaxTotal = state => {
+  return getAddedIds(state)
     .reduce((total, id) =>
       total + getProduct(state, id).price * getQuantity(state, id),
       0
     )
+}
 
 export const getNumTax = state => {
   let tax = (((getPreTaxTotal(state) * taxRate) * taxInd) / 1000000);
@@ -37,9 +38,9 @@ export const getTotal = state => {
 
 export const getCartProducts = state => {
   return getAddedIds(state).map(id => ({
-      ...getProduct(state, id),
-      quantity: getQuantity(state, id)
-    })
+    ...getProduct(state, id),
+    quantity: getQuantity(state, id)
+  })
   )
 }
 
