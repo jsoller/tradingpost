@@ -1,6 +1,47 @@
 [
-  {"id": 1, "upc": "123451", "category": "M", "product_name": "iPad 4 Mini", "price": 50001, "inventory": 3, "checkId": true},
-  {"id": 2, "upc": "123452", "category": "M", "product_name": "H&M T-Shirt White", "price": 1099, "inventory": 10, "checkId": false},
-  {"id": 3, "upc": "123453", "category": "F", "product_name": "Milk Shake", "price": 299, "inventory": 5, "checkId": false},
-  {"id": 4, "upc": "123454", "category": "F", "product_name": "Pizza", "price": 350, "inventory": 20, "checkId": false}
+  {
+    "id": 1,
+    "upc": "123451",
+    "category": "M",
+    "product_name": "iPad 4 Mini",
+    "price": 50001,
+    "inventory": 3,
+    "checkId": true
+  },
+  {
+    "id": 2,
+    "upc": "123452",
+    "category": "M",
+    "product_name": "H&M T-Shirt White",
+    "price": 1099,
+    "inventory": 10,
+    "checkId": false
+  },
+  {
+    "id": 3,
+    "upc": "123453",
+    "category": "F",
+    "product_name": "Milk Shake",
+    "price": 299,
+    "inventory": 5,
+    "checkId": false
+  },
+  {
+    "id": 4,
+    "upc": "123454",
+    "category": "F",
+    "product_name": "Pizza",
+    "price": 350,
+    "inventory": 20,
+    "checkId": false
+  },
+  {
+    "id": 5,
+    "upc": "123455",
+    "category": "M",
+    "product_name": "Knife",
+    "price": 1350,
+    "inventory": 20,
+    "checkId": true
+  }
 ]

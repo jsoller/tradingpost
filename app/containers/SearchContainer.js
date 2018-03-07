@@ -3,21 +3,21 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { addToCart } from '../actions/pointOfSale';
 import { getVisibleProducts } from '../reducers/processproducts';
-import QuickProductItem from '../components/QuickProductItem';
-import QuickProductsList from '../components/QuickProductsList';
+import SearchItem from '../components/SearchItem';
+import SearchList from '../components/SearchList';
 
-const QuickProductsContainer = ({ products, addToCart }) => (
-  <QuickProductsList title="Quick Products">
+const SearchContainer = ({ products, addToCart }) => (
+  <SearchList title="Search">
     {products.map(product =>
-      <QuickProductItem
+      <SearchItem
         key={product.id}
         product={product}
         onAddToCartClicked={() => addToCart(product.id)} />
     )}
-  </QuickProductsList>
+  </SearchList>
 )
 
-QuickProductsContainer.propTypes = {
+SearchContainer.propTypes = {
   products: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     product_name: PropTypes.string.isRequired,
@@ -42,4 +42,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   { addToCart }
-)(QuickProductsContainer)
+)(SearchContainer)

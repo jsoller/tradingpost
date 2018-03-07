@@ -3,27 +3,23 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { addToCart } from '../actions/pointOfSale';
 import { getVisibleProducts } from '../reducers/processproducts';
-import QuickProductItem from '../components/QuickProductItem';
-import QuickProductsList from '../components/QuickProductsList';
+import FunctionItem from '../components/FunctionItem';
+import FunctionList from '../components/FunctionList';
 
-const QuickProductsContainer = ({ products, addToCart }) => (
-  <QuickProductsList title="Quick Products">
+const FunctionContainer = ({ products, addToCart }) => (
+  <FunctionList title="Functions">
     {products.map(product =>
-      <QuickProductItem
+      <FunctionItem
         key={product.id}
         product={product}
-        onAddToCartClicked={() => addToCart(product.id)} />
+        onCheckRestrictionClicked={() => addToCart(product.id)} />
     )}
-  </QuickProductsList>
+  </FunctionList>
 )
 
-QuickProductsContainer.propTypes = {
+FunctionContainer.propTypes = {
   products: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
-    product_name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    inventory: PropTypes.number.isRequired,
-    upc: PropTypes.string.isRequired,
     checkId: PropTypes.bool.isRequired
   })).isRequired,
   addToCart: PropTypes.func.isRequired
@@ -42,4 +38,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   { addToCart }
-)(QuickProductsContainer)
+)(FunctionContainer)

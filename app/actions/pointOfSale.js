@@ -27,7 +27,7 @@ const addToCartUnsafe = productId => ({
 })
 
 export const addToCart = productId => (dispatch, getState) => {
-  if (getState().quickproducts.byId[productId].inventory > 0) {
+  if (getState().processproducts.byId[productId].inventory > 0) {
     dispatch(addToCartUnsafe(productId))
   }
 }

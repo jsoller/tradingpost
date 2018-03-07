@@ -3,12 +3,12 @@ import { combineReducers } from 'redux';
 import { routerReducer as router } from 'react-router-redux';
 import counter from './counter';
 import cart, * as fromCart from './cart';
-import quickproducts, * as fromQuickProducts from './quickproducts';
+import processproducts, * as fromQuickProducts from './processproducts';
 
 const getAddedIds = state => fromCart.getAddedIds(state.cart)
 const getQuantity = (state, id) => fromCart.getQuantity(state.cart, id)
 // const checkRestriction = (hasRestriction, state) => fromCart.checkRestriction(hasRestriction, state.cart)
-const getProduct = (state, id) => fromQuickProducts.getProduct(state.quickproducts, id)
+const getProduct = (state, id) => fromQuickProducts.getProduct(state.processproducts, id)
 
 var taxRate = 675;
 var taxInd = 1;
@@ -56,7 +56,7 @@ export const getCartProducts = state => {
 const rootReducer = combineReducers({
   counter,
   cart,
-  quickproducts,
+  processproducts,
   router,
 });
 
