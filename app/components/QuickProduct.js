@@ -1,16 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const QuickProduct = ({ price, quantity, title }) => (
+const QuickProduct = ({ price, quantity, product_name, upc, checkId }) => (
   <div>
-    {title} - &#36;{price / 100}{quantity ? ` x ${quantity}` : null}
+    {upc} {product_name} - &#36;{price}{quantity ? ` x ${quantity}` : null}
   </div>
 )
 
 QuickProduct.propTypes = {
+  upc: PropTypes.string,
+  product_name: PropTypes.string,
   price: PropTypes.number,
   quantity: PropTypes.number,
-  title: PropTypes.string
+  checkId: PropTypes.bool,
 }
 
 export default QuickProduct

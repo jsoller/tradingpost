@@ -1,7 +1,0 @@
-[
-    {"id": 1, "upc": "123451", "category": "M", "title": "iPad 4 Mini", "price": 50001, "inventory": 3, "checkId": true},
-    {"id": 2, "upc": "123452", "category": "M", "title": "H&M T-Shirt White", "price": 1099, "inventory": 10, "checkId": false},
-    {"id": 3, "upc": "123453", "category": "F", "title": "Milk Shake", "price": 299, "inventory": 5, "checkId": false},
-    {"id": 4, "upc": "123454", "category": "F", "title": "Pizza", "price": 350, "inventory": 20, "checkId": false}
-  ]
-  

@@ -7,7 +7,6 @@ import './app.global.css';
 import { getAllProducts } from './actions/pointOfSale';
 
 const store = configureStore();
-
 store.dispatch(getAllProducts())
 
 render(

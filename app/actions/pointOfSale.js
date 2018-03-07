@@ -1,10 +1,19 @@
 import shop from '../api/shop';
 import * as types from '../constants/ActionTypes';
 
+// const path = require('path');
+// const model = require('model.js');
+
 const receiveProducts = products => ({
   type: types.RECEIVE_PRODUCTS,
   products
 })
+
+// export const getAllProducts = () => dispatch => {
+//   model.getProducts(products => {
+//     dispatch(receiveProducts(products))
+//   })
+// }
 
 export const getAllProducts = () => dispatch => {
   shop.getProducts(products => {
@@ -38,3 +47,9 @@ export const checkout = products => (dispatch, getState) => {
     // dispatch({ type: types.CHECKOUT_FAILURE, cart })
   })
 }
+
+// export const restrictioncheck = products => (dispatch, getState) => {
+//      restrictioncheck = false;
+// }
+
+
