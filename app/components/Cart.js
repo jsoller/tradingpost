@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import QuickProduct from './QuickProduct';
+import DisplayProduct from './DisplayProduct';
 
 
 // const Cart = ({ products, tax, total, onCheckoutClicked, onRestrictionClicked hasRestriction}) => {
@@ -9,7 +9,7 @@ const Cart = ({ products, tax, total, onCheckoutClicked}) => {
   const hasProducts = products.length > 0
   const nodes = hasProducts ? (
     products.map(product =>
-      <QuickProduct
+      <DisplayProduct
         upc={product.upc}
         product_name={product.product_name}
         price={product.price / 100}

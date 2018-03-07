@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import QuickProduct from './QuickProduct';
+import DisplayProduct from './DisplayProduct';
 
 const QuickProductItem = ({ product, onAddToCartClicked }) => (
   <div style={{ marginBottom: 20 }}>
-    {/* <QuickProduct
+    {/* <DisplayProduct
       // upc={product.upc}
       // product_name={product.product_name}
       // price={product.price / 100}
