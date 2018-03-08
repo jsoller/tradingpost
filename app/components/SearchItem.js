@@ -9,8 +9,7 @@ const SearchItem = ({ product, onAddToCartClicked }) => (
       disabled={product.inventory > 0 ? '' : 'disabled'}>
       {product.inventory > 0 ? product.upc + "  " + product.product_name + " $" + (product.price / 100) : 
        product.product_name + ' Sold Out'}
-      {/* {product.inventory > 0 ? 'Add to cart' : 'Sold Out'} */}
-    </button>
+     </button>
    </div>
 )
 

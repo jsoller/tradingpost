@@ -6,12 +6,12 @@ import FunctionContainer from './FunctionContainer';
 
 const PointOfSaleApp = () => (
   <div>
-    <h2>Trading Post Cart Example</h2>
-    <hr/>
+    <h2>Trading Post Sales</h2>
+    <hr />
     <SearchContainer />
-    <hr/>
+    <hr />
     <QuickProductsContainer />
-    <hr/>
+    <hr />
     <CartContainer />
     <hr />
     <FunctionContainer />
