@@ -1,5 +1,5 @@
 {
-  "name": "Trading Post",
+  "name": "TradingPost",
   "productName": "electron-react-trading post",
   "version": "1.0.0",
   "description": "Trading Post Point of Sale - Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
