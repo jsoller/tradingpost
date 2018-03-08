@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 
 const SearchList = ({ title, children }) => (
   <div>
-    <h3>{title}</h3>
+    {/* <h3>{title}</h3> */}
     <div>{children}</div>
   </div>
 )
 
 SearchList.propTypes = {
   children: PropTypes.node,
-  title: PropTypes.string.isRequired
+  // title: PropTypes.string.isRequired
 }
 
 export default SearchList

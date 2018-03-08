@@ -9,7 +9,7 @@ const receiveProducts = products => ({
   products
 })
 
-// export const getAllProducts = () => dispatch => {
+// export const getProductsbyUPC = () => dispatch => {
 //   model.getProducts(products => {
 //     dispatch(receiveProducts(products))
 //   })
@@ -30,6 +30,9 @@ export const addToCart = productId => (dispatch, getState) => {
   if (getState().processproducts.byId[productId].inventory > 0) {
     dispatch(addToCartUnsafe(productId))
   }
+}
+
+export const setRestriction = productId => (dispatch, getState) => {
 }
 
 export const checkout = products => (dispatch, getState) => {

@@ -13,8 +13,8 @@ export default class Home extends Component<Props> {
       <div>
         <div className={styles.container} data-tid="container">
           <h2>Home</h2>
-          <Link to="/counter"> Inventory </Link>
-          <Link to="/p"> Point of Sale</Link>
+          <Link to="/counter">  Inventory </Link>
+          <Link to="/p">   Point of Sale</Link>
         </div>
       </div>
     );
