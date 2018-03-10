@@ -5,9 +5,6 @@
 const path = require('path');
 const fs = require('fs');
 const SQL = require('sql.js');
-const view = require('actions/pointOfSale.js');
-var sql = require('sql.js');
-var db = new sql.Database();
 
 /*
   SQL.js returns a compact object listing the columns separately from the
@@ -28,7 +25,7 @@ let _rowsFromSqlDataObject = function (object) {
     data[i] = {}
     j = 0
     for (let column of object.columns) {
-      Object.assign(data[i], {[column]: valueArray[j]})
+      Object.assign(data[i], { [column]: valueArray[j] })
       j++
     }
     i++
@@ -77,17 +74,18 @@ SQL.dbClose = function (databaseHandle, databaseFileName) {
   window.model.db.
 */
 module.exports.initDb = function (appPath, callback) {
-  let dbPath = path.join(appPath, 'example.db')
+  let dbPath = path.join(appPath, 'tradingpost.db')
   let createDb = function (dbPath) {
     // Create a database.
     let db = new SQL.Database()
     let query = fs.readFileSync(
-    path.join(__dirname, 'db', 'productSchema.sql'), 'utf8')
+      path.join(__dirname, 'db', 'productSchema.sql'), 'utf8')
     let result = db.exec(query)
     if (Object.keys(result).length === 0 &&
       typeof result.constructor === 'function' &&
       SQL.dbClose(db, dbPath)) {
-      console.log('Created a new database.')
+      // SQL.dbClose(db, dbPath);
+      console.log('Created a new database.');
     } else {
       console.log('model.initDb.createDb failed.')
     }
@@ -112,108 +110,6 @@ module.exports.initDb = function (appPath, callback) {
     }
     if (typeof callback === 'function') {
       callback()
-    }
-  }
-}
-
-/*
-  Populates the People List.
-*/
-module.exports.getProducts = function () {
- // let db = SQL.dbOpen(window.model.db)
-  if (db !== null) {
-    var query = db.exec ("SELECT * FROM 'products' ORDER BY 'product_name' ASC")
-    //let query = 'SELECT * FROM `product` ORDER BY `product_name` ASC'
-    try {
-      let row = db.exec(query)
-      if (row !== undefined && row.length > 0) {
-        row = _rowsFromSqlDataObject(row[0])
-        view.showPeople(row)
-      }
-    } catch (error) {
-      console.log('model.getProducts', error.message)
-    } finally {
- //     SQL.dbClose(db, window.model.db)
-    }
-  }
-}
-
-/*
-  Fetch a product by UPC number from the database.
-*/
-module.exports.getUPC = function (upc) {
-  let db = SQL.dbOpen(window.model.db)
-  if (db !== null) {
-    let query = 'SELECT * FROM `product` WHERE `upc` IS ?'
-    let statement = db.prepare(query, [upc])
-    try {
-      if (statement.step()) {
-        let values = [statement.get()]
-        let columns = statement.getColumnNames()
-        return _rowsFromSqlDataObject({values: values, columns: columns})
-      } else {
-        console.log('model.getUPC', 'No data found for UPC =', upc)
-      }
-    } catch (error) {
-      console.log('model.getUPC', error.message)
-    } finally {
-      SQL.dbClose(db, window.model.db)
-    }
-  }
-}
-
-/*
-  Delete a product's data from the database.
-*/
-module.exports.deleteProduct = function (pid, callback) {
-  let db = SQL.dbOpen(window.model.db)
-  if (db !== null) {
-    let query = 'DELETE FROM `product` WHERE `product_id` IS ?'
-    let statement = db.prepare(query)
-    try {
-      if (statement.run([pid])) {
-        if (typeof callback === 'function') {
-          callback()
-        }
-      } else {
-        console.log('model.deleteProduct', 'No data found for product_id =', pid)
-      }
-    } catch (error) {
-      console.log('model.deleteProduct', error.message)
-    } finally {
-      SQL.dbClose(db, window.model.db)
-    }
-  }
-}
-
-/*
-  Insert or update a product's data in the database.
-*/
-module.exports.saveFormData = function (tableName, keyValue, callback) {
-  if (keyValue.columns.length > 0) {
-    let db = SQL.dbOpen(window.model.db)
-    if (db !== null) {
-      let query = 'INSERT OR REPLACE INTO `' + tableName
-      query += '` (`' + keyValue.columns.join('`, `') + '`)'
-      query += ' VALUES (' + _placeHoldersString(keyValue.values.length) + ')'
-      let statement = db.prepare(query)
-      try {
-        if (statement.run(keyValue.values)) {
-          $('#' + keyValue.columns.join(', #'))
-          .addClass('form-control-success')
-          .animate({class: 'form-control-success'}, 1500, function () {
-            if (typeof callback === 'function') {
-              callback()
-            }
-          })
-        } else {
-          console.log('model.saveFormData', 'Query failed for', keyValue.values)
-        }
-      } catch (error) {
-        console.log('model.saveFormData', error.message)
-      } finally {
-        SQL.dbClose(db, window.model.db)
-      }
     }
   }
 }

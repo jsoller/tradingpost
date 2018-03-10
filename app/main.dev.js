@@ -12,6 +12,7 @@
  */
 import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
+import model from './model';
 
 let mainWindow = null;
 
@@ -64,7 +65,9 @@ app.on('ready', async () => {
     height: 728
   });
 
-  mainWindow.loadURL(`file://${__dirname}/app.html`);
+  model.initDb(app.getPath('userData'),
+    mainWindow.loadURL(`file://${__dirname}/app.html`)
+  )
 
   // @TODO: Use 'ready-to-show' event
   //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
