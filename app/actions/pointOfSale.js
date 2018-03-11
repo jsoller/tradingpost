@@ -1,19 +1,19 @@
 import shop from '../api/shop';
 import * as types from '../constants/ActionTypes';
-
-// const path = require('path');
-// const model = require('model.js');
-
+//import path from  'path';
+//import model from 'model.js';
+const path = require('path');
+const model = require('model.js');
 const receiveProducts = products => ({
   type: types.RECEIVE_PRODUCTS,
   products
 })
 
-// export const getProductsbyUPC = () => dispatch => {
-//   model.getProducts(products => {
-//     dispatch(receiveProducts(products))
-//   })
-// }
+//export const getProductsbyDesc = () => dispatch => {
+//  model.getProducts(products => {
+//    dispatch(receiveProducts(products))
+//  })
+//}
 
 export const getAllProducts = () => dispatch => {
   shop.getProducts(products => {

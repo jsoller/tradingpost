@@ -1,4 +1,4 @@
-CREATE TABLE products (
+CREATE TABLE product (
      "productid" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
      "upc" INTEGER NOT NULL,
      "category" TEXT NOT NULL,
@@ -8,11 +8,11 @@ CREATE TABLE products (
      "checkId" INTEGER not null,
      "quickProductInd" INTEGER not null
 );
-CREATE INDEX "upcindex" ON products (upc
+CREATE INDEX "upcindex" ON product (upc
 COLLATE NOCASE ASC);
-CREATE INDEX "productnameindex" ON products (productname
+CREATE INDEX "productnameindex" ON product (productname
 COLLATE NOCASE ASC);
-INSERT INTO products(upc, category, productname, price, inventory, checkId, quickProductInd)
+INSERT INTO product(upc, category, productname, price, inventory, checkId, quickProductInd)
 VALUES
   ("123451", "M", "DB iPad 4 Mini", 50001, 3, 1, 1),
   ("123452", "M", "DB H&M T-Shirt White", 1099, 10, 0, 1),

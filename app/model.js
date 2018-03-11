@@ -113,3 +113,24 @@ module.exports.initDb = function (appPath, callback) {
     }
   }
 }
+
+/*
+  Populates the Product List.
+*/
+// module.exports.getProductsbyDesc = function () {
+//     let db = SQL.dbOpen(window.model.db)
+//     if (db !== null) {
+//       let query = 'SELECT * FROM `products` ORDER BY `productname` ASC'
+//       try {
+//         let row = db.exec(query)
+//         if (row !== undefined && row.length > 0) {
+//           row = _rowsFromSqlDataObject(row[0])
+//           // view.showPeople(row)
+//         }
+//       } catch (error) {
+//         console.log('model.getProductsbyDesc', error.message)
+//       } finally {
+//         SQL.dbClose(db, window.model.db)
+//       }
+//     }
+//   }

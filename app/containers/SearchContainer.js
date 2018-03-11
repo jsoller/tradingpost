@@ -26,7 +26,7 @@ const SearchContainer = ({ products, addToCart }) => (
 SearchContainer.propTypes = {
   products: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
-    product_name: PropTypes.string.isRequired,
+    productname: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     inventory: PropTypes.number.isRequired,
     upc: PropTypes.string.isRequired,

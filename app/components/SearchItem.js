@@ -7,15 +7,15 @@ const SearchItem = ({ product, onAddToCartClicked }) => (
     <button
       onClick={onAddToCartClicked}
       disabled={product.inventory > 0 ? '' : 'disabled'}>
-      {product.inventory > 0 ? product.upc + "  " + product.product_name + " $" + (product.price / 100) : 
-       product.product_name + ' Sold Out'}
+      {product.inventory > 0 ? product.upc + "  " + product.productname + " $" + (product.price / 100) : 
+       product.productname + ' Sold Out'}
      </button>
    </div>
 )
 
 SearchItem.propTypes = {
   product: PropTypes.shape({
-    product_name: PropTypes.string.isRequired,
+    productname: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     inventory: PropTypes.number.isRequired,
     upc: PropTypes.string.isRequired,
