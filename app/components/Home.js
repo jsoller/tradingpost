@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import styles from './Home.css';
 
 type Props = {};
-
+console.log('************   home ******')
 export default class Home extends Component<Props> {
   props: Props;
 

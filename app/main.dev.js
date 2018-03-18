@@ -13,7 +13,9 @@
 import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
 import model from './model';
-//import tableprocessing from './actions/tableprocessing';
+// import * as path from 'path';
+// const config = require(path.join(__dirname,'package.json'))
+// const model = require(path.join(__dirname, 'model.js'))
 
 let mainWindow = null;
 
@@ -66,9 +68,19 @@ app.on('ready', async () => {
     height: 728
   });
 
+
+
+  // window.dbFile = path.join(app.getPath('userData'), 'example.db');
+  //global.dbFile = 'test';
+  // global.sharedObject = {dbFile: path.join(app.getPath('userData'), 'example.db')};
+  //dbFile = path.join(app.getPath('userData'), 'example.db')};
+  //require('dbPath').globalPaths.push(dbFile);
   model.initDb(app.getPath('userData'),
     mainWindow.loadURL(`file://${__dirname}/app.html`)
   )
+
+
+
 
   // @TODO: Use 'ready-to-show' event
   //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event

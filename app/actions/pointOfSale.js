@@ -1,38 +1,45 @@
-import shop from '../api/shop';
+// import shop from '../api/shop';
 import * as types from '../constants/ActionTypes';
-//import path from  'path';
-//import model from 'model.js';
-const path = require('path');
-const model = require('model.js');
+import path from 'path';
+import model from '../model.js';
+
+// const path = require('path');
+// const model = require(path.join(__dirname, 'model.js'));
+console.log('start of pointOfSale');
 const receiveProducts = products => ({
   type: types.RECEIVE_PRODUCTS,
   products
 })
 
-//export const getProductsbyDesc = () => dispatch => {
-//  model.getProducts(products => {
-//    dispatch(receiveProducts(products))
-//  })
-//}
-
-export const getAllProducts = () => dispatch => {
-  shop.getProducts(products => {
+export const getProductsbyDesc = () => dispatch => {
+  window.model.getProducts(products => {
     dispatch(receiveProducts(products))
   })
 }
 
-const addToCartUnsafe = productId => ({
+// export const getAllProducts = () => dispatch => {
+//   shop.getProducts(products => {
+//     dispatch(receiveProducts(products))
+//   })
+// }
+export const getAllProducts = () => dispatch => {
+  model.getProducts((products) => {
+    dispatch(receiveProducts(products));
+  });
+}
+
+const addToCartUnsafe = productid => ({
   type: types.ADD_TO_CART,
-  productId
+  productid
 })
 
-export const addToCart = productId => (dispatch, getState) => {
-  if (getState().processproducts.byId[productId].inventory > 0) {
-    dispatch(addToCartUnsafe(productId))
+export const addToCart = productid => (dispatch, getState) => {
+  if (getState().processproducts.byproductId[productid].inventory > 0) {
+    dispatch(addToCartUnsafe(productid))
   }
 }
 
-export const setRestriction = productId => (dispatch, getState) => {
+export const setRestriction = productid => (dispatch, getState) => {
 }
 
 export const checkout = products => (dispatch, getState) => {

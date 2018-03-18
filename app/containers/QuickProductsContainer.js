@@ -10,16 +10,16 @@ const QuickProductsContainer = ({ products, addToCart }) => (
   <QuickProductsList title="Quick Products">
     {products.map(product =>
       <QuickProductItem
-        key={product.id}
+        key={product.productid}
         product={product}
-        onAddToCartClicked={() => addToCart(product.id)} />
+        onAddToCartClicked={() => addToCart(product.productid)} />
     )}
   </QuickProductsList>
 )
 
 QuickProductsContainer.propTypes = {
   products: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    productid: PropTypes.number.isRequired,
     productname: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     inventory: PropTypes.number.isRequired,

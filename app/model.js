@@ -1,10 +1,22 @@
-//model.js
-
 'use strict'
 
-const path = require('path');
-const fs = require('fs');
-const SQL = require('sql.js');
+import { app, remote } from 'electron';
+import * as path from 'path';
+import * as fs from 'fs';
+import * as SQL from 'sql.js';
+var dbPathName = 'C:/Users/joesoller/AppData/Roaming/Electron';
+var webRoot = path.dirname(__dirname);
+// var modelpath = require(path.join(webRoot, 'model.js'));
+var modeldb = path.join(dbPathName, '/example.db');
+
+console.log('start of model of app', modeldb)
+// var filebuffer = fs.readFileSync(path.resolve('userData'));
+// var db = new SQL.Database(filebuffer);
+
+// var remote = require('electron').remote;
+// const path = require('path');
+// const fs = require('fs');
+// const SQL = require('sql.js');
 
 /*
   SQL.js returns a compact object listing the columns separately from the
@@ -48,7 +60,7 @@ SQL.dbOpen = function (databaseFileName) {
   try {
     return new SQL.Database(fs.readFileSync(databaseFileName))
   } catch (error) {
-    console.log("Can't open database file.", error.message)
+    console.log("Cannot open database file.", error.message)
     return null
   }
 }
@@ -61,20 +73,32 @@ SQL.dbClose = function (databaseHandle, databaseFileName) {
     databaseHandle.close()
     return true
   } catch (error) {
-    console.log("Can't close database file.", error)
+    console.log("Cannot close database file.", error.message)
     return null
   }
 }
+
+// let dbPath = global.dbFile;
+//var remote = require('electron').remote;
+//const { getglobal } = require('electron').remote;
+//remote.getglobal('dbFile');
+
+//let dbPath = require('electron').remote.getGlobal('dbFile');
+// let dbPath = function () {
+//   return path.join(remote.app.getPath('userData'), 'example.db');
+// }
+
+// let dbPath = "";
 
 /*
   A function to create a new SQLite3 database from productSchema.sql.
 
   This function is called from main.js during initialization and that's why
   it's passed appPath. The rest of the model operates from renderer and uses
-  window.model.db.
+  dbPathName.
 */
 module.exports.initDb = function (appPath, callback) {
-  let dbPath = path.join(appPath, 'tradingpost.db')
+  let dbPath = path.join(appPath, 'example.db')
   let createDb = function (dbPath) {
     // Create a database.
     let db = new SQL.Database()
@@ -99,7 +123,11 @@ module.exports.initDb = function (appPath, callback) {
       The file is a valid sqlite3 database. This simple query will demonstrate
       whether it's in good health or not.
     */
-    let query = 'SELECT count(*) as `count` FROM `sqlite_master`'
+    let query1 = 'SELECT * FROM product '
+    let row1 = db.exec(query1)
+    let productname1 = row1[0]
+    console.log('model.getProducts', query1, 'row1', row1, 'productname', productname1)
+    let query = 'Select count(*) as `count` FROM `sqlite_master`'
     let row = db.exec(query)
     let tableCount = parseInt(row[0].values)
     if (tableCount === 0) {
@@ -117,20 +145,25 @@ module.exports.initDb = function (appPath, callback) {
 /*
   Populates the Product List.
 */
-// module.exports.getProductsbyDesc = function () {
-//     let db = SQL.dbOpen(window.model.db)
-//     if (db !== null) {
-//       let query = 'SELECT * FROM `products` ORDER BY `productname` ASC'
-//       try {
-//         let row = db.exec(query)
-//         if (row !== undefined && row.length > 0) {
-//           row = _rowsFromSqlDataObject(row[0])
-//           // view.showPeople(row)
-//         }
-//       } catch (error) {
-//         console.log('model.getProductsbyDesc', error.message)
-//       } finally {
-//         SQL.dbClose(db, window.model.db)
-//       }
-//     }
-//   }
+module.exports.getProducts = function (callback) {
+  let db = SQL.dbOpen(modeldb)
+  console.log('start of getProducts in model', db)
+  if (db !== null) {
+    let query = 'SELECT * FROM `product` ORDER BY `productname` ASC'
+    try {
+      let products = db.exec(query)
+      if (products !== undefined && products.length > 0) {
+        products = _rowsFromSqlDataObject(products[0])
+        callback(products);
+      }
+    } catch (error) {
+      //  print the error
+      console.log('Cannot read getProducts database file.', error.message)
+    } finally {
+      SQL.dbClose(db, modeldb)
+    }
+  }
+  else {
+    console.log('getProducts db null')
+  }
+}

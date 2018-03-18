@@ -16,16 +16,16 @@ const SearchContainer = ({ products, addToCart }) => (
   } 
     {products.map(product =>
       <SearchItem
-        key={product.id}
+        key={product.productid}
         product={product}
-        onAddToCartClicked={() => addToCart(product.id)} />
+        onAddToCartClicked={() => addToCart(product.productid)} />
     )}
   </SearchList>
       )
 
 SearchContainer.propTypes = {
   products: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    productid: PropTypes.number.isRequired,
     productname: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     inventory: PropTypes.number.isRequired,

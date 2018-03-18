@@ -10,16 +10,16 @@ const FunctionContainer = ({ products, addToCart }) => (
   <FunctionList title="Functions">
     {products.map(product =>
       <FunctionItem
-        key={product.id}
+        key={product.productid}
         product={product}
-        onCheckRestrictionClicked={() => setRestriction(product.id)} />
+        onCheckRestrictionClicked={() => setRestriction(product.productid)} />
     )}
   </FunctionList>
 )
 
 FunctionContainer.propTypes = {
   products: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    productid: PropTypes.number.isRequired,
     checkId: PropTypes.bool.isRequired
   })).isRequired,
   setRestriction: PropTypes.func

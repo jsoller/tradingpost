@@ -12,10 +12,10 @@ const initialState = {
 const addedIds = (state = initialState.addedIds, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      if (state.indexOf(action.productId) !== -1) {
+      if (state.indexOf(action.productid) !== -1) {
         return state
       }
-      return [...state, action.productId]
+      return [...state, action.productid]
     default:
       return state
   }
@@ -24,18 +24,18 @@ const addedIds = (state = initialState.addedIds, action) => {
 const quantityById = (state = initialState.quantityById, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      const { productId } = action
+      const { productid } = action
       return {
         ...state,
-        [productId]: (state[productId] || 0) + 1,
+        [productid]: (state[productid] || 0) + 1,
       }
     default:
       return state
   }
 }
 
-export const getQuantity = (state, productId) =>
-  state.quantityById[productId] || 0
+export const getQuantity = (state, productid) =>
+  state.quantityById[productid] || 0
 
 //  export const checkRestriction = (state, currentRestriction) => {
 //   state.hasRestriction || currentRestriction;
