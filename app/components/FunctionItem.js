@@ -22,7 +22,7 @@ const FunctionItem = ({ product, onCheckRestrictionClicked }) => (
 
 FunctionItem.propTypes = {
     product: PropTypes.shape({
-        product_name: PropTypes.string.isRequired,
+        productname: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         inventory: PropTypes.number.isRequired,
         upc: PropTypes.string.isRequired,

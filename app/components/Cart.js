@@ -11,7 +11,7 @@ const Cart = ({ products, tax, total, onCheckoutClicked}) => {
     products.map(product =>
       <DisplayProduct
         upc={product.upc}
-        product_name={product.product_name}
+        productname={product.productname}
         price={product.price / 100}
         quantity={product.quantity}
         checkId={product.checkId}

@@ -12,7 +12,7 @@
  */
 import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
-import model from './model';
+import * as model from './model';
 
 let mainWindow = null;
 

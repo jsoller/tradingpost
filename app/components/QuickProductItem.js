@@ -6,15 +6,15 @@ const QuickProductItem = ({ product, onAddToCartClicked }) => (
   <div style={{ marginBottom: 20 }}>
     {/* <DisplayProduct
       // upc={product.upc}
-      // product_name={product.product_name}
+      // productname={product.productname}
       // price={product.price / 100}
       // quantity={product.inventory} 
       // checkId={product.checkId}/> */}
     <button
       onClick={onAddToCartClicked}
       disabled={product.inventory > 0 ? '' : 'disabled'}>
-      {product.inventory > 0 ? product.product_name + " $" + (product.price / 100) : 
-       product.product_name + ' Sold Out'}
+      {product.inventory > 0 ? product.productname + " $" + (product.price / 100) : 
+       product.productname + ' Sold Out'}
       {/* {product.inventory > 0 ? 'Add to cart' : 'Sold Out'} */}
     </button>
     <button>
@@ -25,7 +25,7 @@ const QuickProductItem = ({ product, onAddToCartClicked }) => (
 
 QuickProductItem.propTypes = {
   product: PropTypes.shape({
-    product_name: PropTypes.string.isRequired,
+    productname: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     inventory: PropTypes.number.isRequired,
     upc: PropTypes.string.isRequired,
