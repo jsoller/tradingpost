@@ -9,11 +9,11 @@ import SearchList from '../components/SearchList';
 const SearchContainer = ({ products, addToCart }) => (
   <SearchList> {
     <form> <label> Search for Products <input type="text" name="searchname" />
-  </label>
-    <input type="submit" value="UPC" name="searchupc" />
-    <input type="submit" value="Desc" name="searchdesc" />
-  </form >
-  } 
+    </label>
+      <input type="submit" value="UPC" name="searchupc" />
+      <input type="submit" value="Desc" name="searchdesc" />
+    </form >
+  }
     {products.map(product =>
       <SearchItem
         key={product.id}
@@ -21,7 +21,7 @@ const SearchContainer = ({ products, addToCart }) => (
         onAddToCartClicked={() => addToCart(product.id)} />
     )}
   </SearchList>
-      )
+)
 
 SearchContainer.propTypes = {
   products: PropTypes.arrayOf(PropTypes.shape({
@@ -29,8 +29,8 @@ SearchContainer.propTypes = {
     productname: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     inventory: PropTypes.number.isRequired,
-    upc: PropTypes.string.isRequired,
-    checkId: PropTypes.bool.isRequired
+    upc: PropTypes.number.isRequired,
+    checkId: PropTypes.number.isRequired
   })).isRequired,
   addToCart: PropTypes.func.isRequired
 }

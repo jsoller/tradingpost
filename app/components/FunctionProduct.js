@@ -8,7 +8,7 @@ const FunctionProduct = ({ checkId }) => (
 )
 
 FunctionProduct.propTypes = {
-  checkId: PropTypes.bool,
+  checkId: PropTypes.number,
 }
 
 export default FunctionProduct

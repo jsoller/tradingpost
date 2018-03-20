@@ -10,9 +10,11 @@
  *
  * @flow
  */
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import MenuBuilder from './menu';
 import * as model from './model';
+import * as ipcTypes from './constants/IpcTypes';
+import * as types from './constants/ActionTypes';
 
 let mainWindow = null;
 
@@ -63,6 +65,16 @@ app.on('ready', async () => {
     show: false,
     width: 1024,
     height: 728
+  });
+
+  ipcMain.on(ipcTypes.IPC_TO_MAIN, (event, args) => {
+    if (args !== undefined && args.todo === 'product') {
+      const products = Object.values(model.getProducts(app.getPath('userData')));
+      event.sender.send(ipcTypes.IPC_TO_RENDER, {
+        type: types.RECEIVE_PRODUCTS,
+        products
+      });
+    }
   });
 
   model.initDb(app.getPath('userData'),

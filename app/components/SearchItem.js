@@ -18,8 +18,8 @@ SearchItem.propTypes = {
     productname: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     inventory: PropTypes.number.isRequired,
-    upc: PropTypes.string.isRequired,
-    checkId: PropTypes.bool.isRequired
+    upc: PropTypes.number.isRequired,
+    checkId: PropTypes.number.isRequired
   }).isRequired,
   onAddToCartClicked: PropTypes.func.isRequired
 }

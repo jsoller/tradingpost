@@ -8,11 +8,11 @@ const SearchProduct = ({ price, quantity, productname, upc, checkId }) => (
 )
 
 SearchProduct.propTypes = {
-  upc: PropTypes.string,
+  upc: PropTypes.number,
   productname: PropTypes.string,
   price: PropTypes.number,
   quantity: PropTypes.number,
-  checkId: PropTypes.bool,
+  checkId: PropTypes.number,
 }
 
 export default SearchProduct

@@ -113,3 +113,28 @@ module.exports.initDb = function (appPath, callback) {
     }
   }
 }
+
+/*
+  Populates the Product List.
+*/
+module.exports.getProducts = function (appPath) {
+  let dbPath = path.join(appPath, 'tradingpost.db');
+  let db = SQL.dbOpen(dbPath);
+  console.log('start of getProducts in model', db)
+  if (db !== null) {
+    let query = 'SELECT * FROM `products`'
+    try {
+      let products = db.exec(query)
+      if (products !== undefined && products.length > 0) {
+        products = _rowsFromSqlDataObject(products[0])
+        return products;
+      }
+    } catch (error) {
+      //  print the error
+      console.log('Cannot read getProducts database file.', error.message)
+    } finally {
+      SQL.dbClose(db, dbPath)
+    }
+  }
+  return {};
+}

@@ -20,7 +20,7 @@ const FunctionContainer = ({ products, addToCart }) => (
 FunctionContainer.propTypes = {
   products: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
-    checkId: PropTypes.bool.isRequired
+    checkId: PropTypes.number.isRequired
   })).isRequired,
   setRestriction: PropTypes.func
 }

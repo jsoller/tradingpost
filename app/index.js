@@ -4,10 +4,10 @@ import { AppContainer } from 'react-hot-loader';
 import Root from './containers/Root';
 import { configureStore, history } from './store/configureStore';
 import './app.global.css';
-import { getAllProducts } from './actions/pointOfSale';
+import { startListener } from './actions/ipcHandler';
 
 const store = configureStore();
-store.dispatch(getAllProducts())
+startListener(store);
 
 render(
   <AppContainer>
