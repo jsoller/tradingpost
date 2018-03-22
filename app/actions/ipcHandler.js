@@ -5,12 +5,13 @@ export let startListener = (store) => {
     ipcRenderer.on(ipcTypes.IPC_TO_RENDER, (event, args) => { 
         store.dispatch(args); 
     });
-  getProducts();
+  getProductsIPC('product', null);
 }
 
-export let getProducts = () => {
+export let getProductsIPC = (productsquery, producttype) => {
     ipcRenderer.send(
         ipcTypes.IPC_TO_MAIN,
-        { todo: 'product'}
+        { todo: productsquery,
+            todotype: producttype }
     );
 }

@@ -1,4 +1,4 @@
-import shop from '../api/shop';
+// import shop from '../api/shop';
 import * as types from '../constants/ActionTypes';
 
 // const path = require('path');
@@ -17,6 +17,12 @@ const receiveProducts = products => ({
 
 export const getAllProducts = () => dispatch => {
   shop.getProducts(products => {
+    dispatch(receiveProducts(products))
+  })
+}
+
+export const getAllProductsByType = () => dispatch => {
+  shop.getProductsByType(products => {
     dispatch(receiveProducts(products))
   })
 }

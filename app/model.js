@@ -120,7 +120,6 @@ module.exports.initDb = function (appPath, callback) {
 module.exports.getProducts = function (appPath) {
   let dbPath = path.join(appPath, 'tradingpost.db');
   let db = SQL.dbOpen(dbPath);
-  console.log('start of getProducts in model', db)
   if (db !== null) {
     let query = 'SELECT * FROM `products`'
     try {
@@ -137,4 +136,35 @@ module.exports.getProducts = function (appPath) {
     }
   }
   return {};
+}
+
+/*
+  Populates the Product List by category.
+*/
+module.exports.getProductsByType = function (appPath, categorytype = 'M') {
+  let dbPath = path.join(appPath, 'tradingpost.db');
+  let db = SQL.dbOpen(dbPath);
+  console.log('start of getProductsByType in model', categorytype)
+  if (db !== null) {
+    try {
+      let products = [];
+
+      // Get products by type
+      let statement = db.prepare('SELECT * FROM `products` WHERE category = ?', [categorytype])
+      while (statement.step()) {
+        products.push(statement.getAsObject());
+      }
+
+      console.log('getProductsByType products ', products)
+      if (products !== undefined && products.length > 0) {
+        return products;
+      }
+    } catch (error) {
+      //  print the error
+      console.log('Cannot read getProductsByType database file.', error.message)
+    } finally {
+      SQL.dbClose(db, dbPath)
+    }
+  }
+  return [];
 }

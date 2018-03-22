@@ -18,7 +18,7 @@ const QuickProductsContainer = ({ products, addToCart }) => (
 )
 
 QuickProductsContainer.propTypes = {
-  products: PropTypes.arrayOf(PropTypes.shape({
+products: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     productname: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
@@ -31,7 +31,7 @@ QuickProductsContainer.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    products: getVisibleProducts(state.processproducts)
+  products: getVisibleProducts(state.processproducts)
   };
 }
 

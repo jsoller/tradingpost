@@ -68,8 +68,21 @@ app.on('ready', async () => {
   });
 
   ipcMain.on(ipcTypes.IPC_TO_MAIN, (event, args) => {
+    console.log('main.dev.js todo', args.todo, ' prodtype ', args.todotype)
     if (args !== undefined && args.todo === 'product') {
       const products = Object.values(model.getProducts(app.getPath('userData')));
+      event.sender.send(ipcTypes.IPC_TO_RENDER, {
+        type: types.RECEIVE_PRODUCTS,
+        products
+      });
+    }
+    else if (args !== undefined && args.todo === 'productByType') {
+      let prodtype = 'F';
+      if (args.todotype !== undefined) {
+        prodtype = args.todotype;
+      }
+      console.log('call getProductsByType from main.dev.js', prodtype)
+      const products = Object.values(model.getProductsByType(app.getPath('userData'), prodtype));
       event.sender.send(ipcTypes.IPC_TO_RENDER, {
         type: types.RECEIVE_PRODUCTS,
         products
