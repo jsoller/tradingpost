@@ -34,14 +34,5 @@
     "price": 350,
     "inventory": 20,
     "checkId": false
-  },
-  {
-    "id": 5,
-    "upc": "123455",
-    "category": "M",
-    "productname": "Knife",
-    "price": 1350,
-    "inventory": 20,
-    "checkId": true
   }
 ]

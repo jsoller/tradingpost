@@ -1,61 +1,59 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DisplayProduct from './DisplayProduct';
-
+import styles from '../components/TradingPost.css';
 
 // const Cart = ({ products, tax, total, onCheckoutClicked, onRestrictionClicked hasRestriction}) => {
- 
-const Cart = ({ products, tax, total, onCheckoutClicked}) => {
-  const hasProducts = products.length > 0
-  const nodes = hasProducts ? (
-    products.map(product =>
-      <DisplayProduct
+
+const displayProducts = (products) => {
+  let nodes = [];
+  products.forEach(product => {
+    for (let i = 0; i < product.quantity; i++) {
+      nodes.push(<DisplayProduct
         upc={product.upc}
         productname={product.productname}
         price={product.price / 100}
         quantity={product.quantity}
         checkId={product.checkId}
-        key={product.id}
-      />
-    )
-  ) : (
-      <em>Please add some products to cart.</em>
-    )
+        key={"p" + product.id + "p" + i}
+      />);
+    }
+  });
+  return nodes;
+};
+
+const Cart = ({ products, tax, total, onCheckoutClicked }) => {
+  const hasProducts = products.length > 0
+  const nodes = hasProducts ? (
+    displayProducts(products)
+  ) : ""
 
   return (
-    <div>
-      <h3>Total Purchases</h3>
+    <div className={styles.rightside}>
       <div>{nodes}</div>
-      <div>Tax: &#36;{tax}</div>
-      <p>Total: &#36;{total}</p>
-      <button onClick={onCheckoutClicked}
-        disabled={hasProducts ? '' : 'disabled'}>
-        Checkout
-      </button>
-     </div>
+    </div>
   )
 }
 
 Cart.propTypes = {
   products: PropTypes.array,
   tax: PropTypes.string,
-  total: PropTypes.string,
-  onCheckoutClicked: PropTypes.func
- // onRestrictionClicked: PropTypes.func,
+  total: PropTypes.string
+  // onRestrictionClicked: PropTypes.func,
   // hasRestriction: PropTypes.bool,
 }
 
 export default Cart
 
-  // const needIdChecked = products.checkId
+// const needIdChecked = products.checkId
 
-  // var needIdChecked;
-  // if (products.checkId === true) {
-  //   needIdChecked = true
-  //     }  
+// var needIdChecked;
+// if (products.checkId === true) {
+//   needIdChecked = true
+//     }  
 
 
-     {/* <button onClick={onRestrictionClicked}
+{/* <button onClick={onRestrictionClicked}
         disabled={hasRestriction ? '' : 'disabled'}>
         Check Id
       </button> */}

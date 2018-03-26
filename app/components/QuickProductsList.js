@@ -1,24 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getProductsIPC } from '../actions/ipcHandler';
+import styles from './TradingPost.css';
 
-const QuickProductsList = ({ title, children }) => (
-  <div>
-    <h3>{title}</h3>
-    {/* <div className="w3-bar w3-black"> */}
+const QuickProductsList = ({ children }) => (
+  <div className={styles.leftside}>
+    {/* <h3 >{title}</h3>
     <div>
-      {/* <a href="#" className="w3-bar-item w3-button"> FOOD </a>
-      <a href="#" className="w3-bar-item w3-button"> MERCHANDISE</a> */}
-      <button onClick={() => getProductsIPC('productByType', 'M')}>productsByType</button>
-      <button onClick={() => getProductsIPC('product', null)}>product</button>
-    </div>
+      <button onClick={() => getProductsIPC('productByType', 'M')}>merchandise</button>
+      <button onClick={() => getProductsIPC('productByType', 'F')}>food</button>
+    </div> */}
     <div>{children}</div>
   </div>
 )
 
 QuickProductsList.propTypes = {
   children: PropTypes.node,
-  title: PropTypes.string.isRequired
+  // title: PropTypes.string.isRequired
 }
 
 export default QuickProductsList

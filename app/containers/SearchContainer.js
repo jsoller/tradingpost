@@ -5,21 +5,16 @@ import { addToCart } from '../actions/pointOfSale';
 import { getVisibleProducts } from '../reducers/processproducts';
 import SearchItem from '../components/SearchItem';
 import SearchList from '../components/SearchList';
+import { getProductsIPC } from '../actions/ipcHandler';
 
 const SearchContainer = ({ products, addToCart }) => (
+  // var searchentry = this.props
   <SearchList> {
-    <form> <label> Search for Products <input type="text" name="searchname" />
-    </label>
-      <input type="submit" value="UPC" name="searchupc" />
-      <input type="submit" value="Desc" name="searchdesc" />
-    </form >
+    <input className ="form-control"
+           placeholder = "search field"
+           onChange={(searchentry) => getProductsIPC('getProductsByName', searchentry.target.value)}
+           />
   }
-    {products.map(product =>
-      <SearchItem
-        key={product.id}
-        product={product}
-        onAddToCartClicked={() => addToCart(product.id)} />
-    )}
   </SearchList>
 )
 

@@ -7,7 +7,8 @@ import QuickProductItem from '../components/QuickProductItem';
 import QuickProductsList from '../components/QuickProductsList';
 
 const QuickProductsContainer = ({ products, addToCart }) => (
-  <QuickProductsList title="Quick Products">
+  // <QuickProductsList title="Quick Products">
+    <QuickProductsList>
     {products.map(product =>
       <QuickProductItem
         key={product.id}

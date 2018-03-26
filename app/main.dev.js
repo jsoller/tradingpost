@@ -88,6 +88,19 @@ app.on('ready', async () => {
         products
       });
     }
+    else if (args !== undefined && args.todo === 'productByName') {
+      let prodname = ' ';
+      console.log('productsByName code')
+      if (args.todotype !== undefined) {
+        prodname = args.todotype;
+      }
+      console.log('call getProductsByName from main.dev.js', prodname)
+      const products = Object.values(model.getProductsByName(app.getPath('userData'), prodname));
+      event.sender.send(ipcTypes.IPC_TO_RENDER, {
+        type: types.RECEIVE_PRODUCTS,
+        products
+      });
+    }
   });
 
   model.initDb(app.getPath('userData'),

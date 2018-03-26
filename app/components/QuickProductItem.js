@@ -2,23 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DisplayProduct from './DisplayProduct';
 
+//currently allowing products to be sold even if inventory states none left
 const QuickProductItem = ({ product, onAddToCartClicked }) => (
-  <div style={{ marginBottom: 20 }}>
-    {/* <DisplayProduct
-      // upc={product.upc}
-      // productname={product.productname}
-      // price={product.price / 100}
-      // quantity={product.inventory} 
-      // checkId={product.checkId}/> */}
+  <div style={{ marginBottom: 10 }}>
     <button
       onClick={onAddToCartClicked}
-      disabled={product.inventory > 0 ? '' : 'disabled'}>
-      {product.inventory > 0 ? product.productname + " $" + (product.price / 100) : 
-       product.productname + ' Sold Out'}
-      {/* {product.inventory > 0 ? 'Add to cart' : 'Sold Out'} */}
+      // disabled={product.inventory > 0 ? '' : 'disabled'}
+      >
+      {/* {product.inventory > 0 ? product.productname + " $" + (product.price / 100) : 
+       product.productname + ' Sold Out'} */}
+      {product.productname + " $" + (product.price / 100)} 
     </button>
     <button>
-    {product.checkId === true ? "check id" : ""}
+    {product.checkId === 1 ? "check id" : ""}
       </button>
    </div>
 )

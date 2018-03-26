@@ -32,8 +32,12 @@ const addToCartUnsafe = productId => ({
   productId
 })
 
+//the else allows the sale of products even if inventory states zero
 export const addToCart = productId => (dispatch, getState) => {
   if (getState().processproducts.byId[productId].inventory > 0) {
+    dispatch(addToCartUnsafe(productId))
+  }
+  else {
     dispatch(addToCartUnsafe(productId))
   }
 }

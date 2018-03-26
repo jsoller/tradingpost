@@ -168,3 +168,35 @@ module.exports.getProductsByType = function (appPath, categorytype = 'M') {
   }
   return [];
 }
+
+/*
+  Populates the Product List by name.
+*/
+module.exports.getProductsByName = function (appPath, searchname = ' ') {
+  let searchnameformat = '%' + searchname + '%';
+  let dbPath = path.join(appPath, 'tradingpost.db');
+  let db = SQL.dbOpen(dbPath);
+  console.log('start of getProductsByName in model', searchname)
+  if (db !== null) {
+    try {
+      let products = [];
+
+      // Get products by type
+      let statement = db.prepare('SELECT * FROM `products` WHERE productname like ?', [searchnameformat])
+      while (statement.step()) {
+        products.push(statement.getAsObject());
+      }
+
+      console.log('getProductsByName products ', products)
+      if (products !== undefined && products.length > 0) {
+        return products;
+      }
+    } catch (error) {
+      //  print the error
+      console.log('Cannot read getProductsByName database file.', error.message)
+    } finally {
+      SQL.dbClose(db, dbPath)
+    }
+  }
+  return [];
+}
