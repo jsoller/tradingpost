@@ -1,4 +1,4 @@
-// import shop from '../api/shop';
+import shop from '../api/shop';
 import * as types from '../constants/ActionTypes';
 
 // const path = require('path');
@@ -32,6 +32,11 @@ const addToCartUnsafe = productId => ({
   productId
 })
 
+const removeFromCartUnsafe = productId => ({
+  type: types.REMOVE_FROM_CART,
+  productId
+})
+
 //the else allows the sale of products even if inventory states zero
 export const addToCart = productId => (dispatch, getState) => {
   if (getState().processproducts.byId[productId].inventory > 0) {
@@ -39,6 +44,15 @@ export const addToCart = productId => (dispatch, getState) => {
   }
   else {
     dispatch(addToCartUnsafe(productId))
+  }
+}
+
+export const removeFromCart = productId => (dispatch, getState) => {
+  if (getState().processproducts.byId[productId].inventory > 0) {
+    dispatch(removeFromCartUnsafe(productId))
+  }
+  else {
+    dispatch(removeFromCartUnsafe(productId))
   }
 }
 

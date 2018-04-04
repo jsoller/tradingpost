@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { checkout } from '../actions/pointOfSale';
-import { getTotal, getTax, getCartProducts} from '../reducers';
 import Checkout from '../components/Checkout';
+import { checkout } from '../actions/pointOfSale';
+import { getTotal, getTax, getCartProducts } from '../reducers';
+import RestrictionContainer from '../containers/RestrictionContainer';
 
 //const CheckoutContainer = ({ products, tax, total, checkout, restrictioncheck }) => (
 const CheckoutContainer = ({ products, tax, total, checkout }) => (
@@ -11,10 +12,10 @@ const CheckoutContainer = ({ products, tax, total, checkout }) => (
     products={products}
     tax={tax}
     total={total}
-    onCheckoutClicked={() => checkout(products)}
-    //onRestrictionClicked={() => restrictioncheck(products)}
-    // hasRestriction={hasRestriction}
-    />
+    onCheckoutClicked={() => RestrictionContainer(products)}
+  //onRestrictionClicked={() => restrictioncheck(products)}
+  // hasRestriction={hasRestriction}
+  />
 )
 
 CheckoutContainer.propTypes = {
@@ -26,12 +27,12 @@ CheckoutContainer.propTypes = {
     upc: PropTypes.number.isRequired,
     checkId: PropTypes.number.isRequired,
   })).isRequired,
-  tax: PropTypes.string,
-  total: PropTypes.string,
+  tax: PropTypes.integer,
+  total: PropTypes.integer,
   checkout: PropTypes.func.isRequired,
 }
-  //restrictioncheck: PropTypes.bool,
-  // hasRestriction: PropTypes.bool,
+//restrictioncheck: PropTypes.bool,
+// hasRestriction: PropTypes.bool,
 
 
 const mapStateToProps = (state) => ({

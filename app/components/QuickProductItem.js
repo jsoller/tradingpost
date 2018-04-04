@@ -11,7 +11,7 @@ const QuickProductItem = ({ product, onAddToCartClicked }) => (
       >
       {/* {product.inventory > 0 ? product.productname + " $" + (product.price / 100) : 
        product.productname + ' Sold Out'} */}
-      {product.productname + " $" + (product.price / 100)} 
+      {product.productname + " $" + (product.price / 100) +  '   ' + product.inventory} 
     </button>
     <button>
     {product.checkId === 1 ? "check id" : ""}

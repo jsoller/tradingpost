@@ -6,7 +6,6 @@ import CartHeaderContainer from './CartHeaderContainer';
 import CartContainer from './CartContainer';
 import CartTotalContainer from './CartTotalContainer';
 import SearchContainer from './SearchContainer';
-import FunctionContainer from './FunctionContainer';
 import CheckoutContainer from './CheckoutContainer';
 import styles from '../components/TradingPost.css';
 

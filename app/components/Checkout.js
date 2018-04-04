@@ -20,8 +20,8 @@ const Checkout = ({ products, tax, total, onCheckoutClicked }) => {
   
 Checkout.propTypes = {
   products: PropTypes.array,
-  tax: PropTypes.string,
-  total: PropTypes.string,
+  tax: PropTypes.integer,
+  total: PropTypes.integer,
   onCheckoutClicked: PropTypes.func
   // onRestrictionClicked: PropTypes.func,
   // hasRestriction: PropTypes.bool,

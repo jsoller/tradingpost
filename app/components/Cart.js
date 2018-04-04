@@ -16,13 +16,14 @@ const displayProducts = (products) => {
         quantity={product.quantity}
         checkId={product.checkId}
         key={"p" + product.id + "p" + i}
+        productid={product.id}
       />);
     }
   });
   return nodes;
 };
 
-const Cart = ({ products, tax, total, onCheckoutClicked }) => {
+const Cart = ({ products }) => {
   const hasProducts = products.length > 0
   const nodes = hasProducts ? (
     displayProducts(products)
@@ -37,9 +38,8 @@ const Cart = ({ products, tax, total, onCheckoutClicked }) => {
 
 Cart.propTypes = {
   products: PropTypes.array,
-  tax: PropTypes.string,
-  total: PropTypes.string
-  // onRestrictionClicked: PropTypes.func,
+  // tax: PropTypes.integer,
+  // total: PropTypes.integer
   // hasRestriction: PropTypes.bool,
 }
 
