@@ -1,12 +1,15 @@
 import React from 'react';
+import { Row } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { removeFromCart } from '../actions/pointOfSale';
+import styles from '../components/TradingPost.css';
 
 const DisplayProduct = ({ price, quantity, productname, upc, checkId, productid, removeFromCart }) => (
-  <div >
+  <div className={styles.cartdisplay}>
     {upc} {productname} - &#36;{price}
     <button
+      className={styles.cartdisplaydel}
       onClick={() => removeFromCart(productid)}>DEL
       </button>
   </div>
