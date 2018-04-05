@@ -19,8 +19,8 @@ PaymentList.propTypes = {
         checkId: PropTypes.number.isRequired
       })).isRequired,
       taxexempt: PropTypes.integer,
-      tax: PropTypes.integer,
-      total: PropTypes.integer,
+      tax: PropTypes.string,
+      total: PropTypes.string,
       addToCart: PropTypes.func.isRequired,
       checkneeded: PropTypes.string
     }

@@ -12,6 +12,8 @@ const getProduct = (state, id) => fromQuickProducts.getProduct(state.processprod
 
 var taxRate = 675;
 var taxInd = 1;
+var tax = 0;
+var total = 0;
 
 export const getPreTaxTotal = state => {
   return getAddedIds(state)
