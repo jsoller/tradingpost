@@ -12,8 +12,8 @@ const CartTotalContainer = ({ tax, total }) => (
 )
 
 CartTotalContainer.propTypes = {
-  tax: PropTypes.integer,
-  total: PropTypes.integer,
+  tax: PropTypes.string,
+  total: PropTypes.string,
 }
 
 const mapStateToProps = (state) => ({

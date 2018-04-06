@@ -98,12 +98,12 @@
 .centered img {
     width: 150px;
     border-radius: 50%;
-}
+}*/
 
 .box {
     display: flex;
     flex-direction: row;
-} */
+} 
 
 .cartdisplaydel {
     float: right;

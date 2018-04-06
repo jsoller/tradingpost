@@ -11,8 +11,8 @@ const CartTotal = ({ tax, total }) => (
 )
 
 CartTotal.propTypes = {
-    tax: PropTypes.integer,
-    total: PropTypes.integer
+    tax: PropTypes.string,
+    total: PropTypes.string
 }
 
 export default CartTotal

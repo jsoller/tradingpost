@@ -15,6 +15,7 @@ export default class Home extends Component<Props> {
           <h2>Home</h2>
           <Link to="/counter">  Inventory </Link>
           <Link to="/p">   Point of Sale</Link>
+          <Link to="/payment">   Payment</Link>
         </div>
       </div>
     );

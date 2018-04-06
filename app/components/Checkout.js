@@ -1,15 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from '../components/TradingPost.css';
+import { connect } from 'react-redux';
+import { checkout } from '../actions/pointOfSale';
 
 // const Checkout = ({ products, tax, total, onCheckoutClicked, onRestrictionClicked hasRestriction}) => {
 
-const Checkout = ({ products, tax, total, onCheckoutClicked }) => {
+const Checkout = ({ products, checkout }) => {
   const hasProducts = products.length > 0
 
   return (
     <div >
-      <button onClick={onCheckoutClicked}
+      <button 
+      onClick={() => checkout(products)}
         disabled={hasProducts ? '' : 'disabled'}>
         Checkout
       </button>
@@ -20,12 +23,16 @@ const Checkout = ({ products, tax, total, onCheckoutClicked }) => {
   
 Checkout.propTypes = {
   products: PropTypes.array,
-  tax: PropTypes.integer,
-  total: PropTypes.integer,
-  onCheckoutClicked: PropTypes.func
+  checkout: PropTypes.func.isRequired,
   // onRestrictionClicked: PropTypes.func,
   // hasRestriction: PropTypes.bool,
 }
 
-export default Checkout
 
+const mapStateToProps = (state) => ({
+})
+
+export default connect(
+  mapStateToProps,
+  { checkout }
+)(Checkout)
