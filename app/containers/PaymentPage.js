@@ -1,9 +1,12 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
+import { connect } from 'react-redux';
 import CouncilContainer from './CouncilContainer';
 import CheckPaymentContainer from './CheckPaymentContainer';
 import CreditCardContainer from './CreditCardContainer';
+import CartTotalContainer from './CartTotalContainer';
 import styles from '../components/TradingPost.css';
+import CashPaymentContainer from './CashPaymentContainer';
 
 const PaymentPage = () => (
   <Container>
@@ -11,15 +14,31 @@ const PaymentPage = () => (
       <h2 >Payment</h2>
     </Row>
     <Row>
-        <CouncilContainer />
+      <CouncilContainer />
     </Row>
     <Row>
-        <CheckPaymentContainer />
+      <CheckPaymentContainer />
     </Row>
     <Row>
-        <CreditCardContainer />
+      <CreditCardContainer />
+    </Row>
+    <Row>
+      <Col>
+        <CartTotalContainer />
+      </Col>
+      <Col>
+      </Col>
+      <Col>
+      <CashPaymentContainer />
+        </Col>
     </Row>
   </Container>
 )
 
-export default PaymentPage
+const mapStateToProps = (state) => ({
+})
+
+export default connect(
+    mapStateToProps,
+    {}
+)(PaymentPage)

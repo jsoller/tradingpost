@@ -6,7 +6,7 @@ import styles from './TradingPost.css';
 
 const CouncilSearch = ({ title }) => (
   <div className={styles.leftsidehdr}>
-    <h3 >{title}</h3>
+    <h4 >{title}</h4>
     <Row>
       <Col sm={{ size: 'auto', offset: 0 }}>
         <Label for="councilelect">Council</Label>
