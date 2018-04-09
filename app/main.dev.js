@@ -101,7 +101,29 @@ app.on('ready', async () => {
         products
       });
     }
+    else if (args !== undefined && args.todo === 'council') {
+      console.log('call getCouncil from main.dev.js')
+      const councils = Object.values(model.getCouncils(app.getPath('userData')));
+      event.sender.send(ipcTypes.IPC_TO_RENDER, {
+        type: types.RECEIVE_COUNCILS,
+        councils
+      });
+    }
+    else if (args !== undefined && args.todo === 'district') {
+      console.log('call getDistrictsByCouncil from main.dev.js (args)', args.todotype)
+      let councilnum = args.todotype
+      if (!councilnum) {
+        councilnum = 'BSA326'
+      }
+      console.log('call getDistrictsByCouncil from main.dev.js', councilnum)
+      const districts = Object.values(model.getDistrictsByCouncil(app.getPath('userData'), councilnum));
+      event.sender.send(ipcTypes.IPC_TO_RENDER, {
+        type: types.RECEIVE_DISTRICTS,
+        districts
+      });
+    }
   });
+  
 
   model.initDb(app.getPath('userData'),
     mainWindow.loadURL(`file://${__dirname}/app.html`)

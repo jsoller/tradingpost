@@ -78,8 +78,17 @@ module.exports.initDb = function (appPath, callback) {
   let createDb = function (dbPath) {
     // Create a database.
     let db = new SQL.Database()
+    let councilquery = fs.readFileSync(
+      path.join(__dirname, 'db', 'councilSchema.sql'), 'utf8');
+    let councilresult = db.exec(councilquery)
+    let districtquery = fs.readFileSync(
+       path.join(__dirname, 'db', 'districtSchema.sql'), 'utf8');
+    let districtresult = db.exec(districtquery)
+    let unitquery = fs.readFileSync(
+       path.join(__dirname, 'db', 'unitSchema.sql'), 'utf8');
+    let unitresult = db.exec(unitquery)
     let query = fs.readFileSync(
-      path.join(__dirname, 'db', 'productSchema.sql'), 'utf8')
+      path.join(__dirname, 'db', 'productSchema.sql'), 'utf8');
     let result = db.exec(query)
     if (Object.keys(result).length === 0 &&
       typeof result.constructor === 'function' &&
@@ -107,6 +116,18 @@ module.exports.initDb = function (appPath, callback) {
       createDb(dbPath)
     } else {
       console.log('The database has', tableCount, 'tables.')
+
+      //     console.log('read council')
+      //  let dbPath = path.join(appPath, 'tradingpost.db')
+      //  console.log('dbPath ', dbPath)
+      //  let db = SQL.dbOpen(dbPath)
+      //  console.log('db ', db)
+      //   let councilquery = 'SELECT * FROM `council`'
+      //   console.log('councilquery ', councilquery)
+      //   let councils = db.exec(councilquery)
+      //     console.log('council ', councils)
+
+
     }
     if (typeof callback === 'function') {
       callback()
@@ -194,6 +215,69 @@ module.exports.getProductsByName = function (appPath, searchname = ' ') {
     } catch (error) {
       //  print the error
       console.log('Cannot read getProductsByName database file.', error.message)
+    } finally {
+      SQL.dbClose(db, dbPath)
+    }
+  }
+  return [];
+}
+
+
+/*
+  Populates the Council List 
+*/
+module.exports.getCouncils = function (appPath) {
+  let dbPath = path.join(appPath, 'tradingpost.db');
+  let db = SQL.dbOpen(dbPath);
+  console.log('start of getCouncils in model')
+  if (db !== null) {
+    try {
+      let councils = [];
+
+      // Get councils
+      let statement = db.prepare('SELECT * FROM `council`')
+      while (statement.step()) {
+        councils.push(statement.getAsObject());
+      }
+
+      console.log('getCouncils ', councils)
+      if (councils !== undefined && councils.length > 0) {
+        return councils;
+      }
+    } catch (error) {
+      //  print the error
+      console.log('Cannot read getCouncils database file.', error.message)
+    } finally {
+      SQL.dbClose(db, dbPath)
+    }
+  }
+  return [];
+}
+              
+module.exports.getDistrictsByCouncil = function (appPath, councilnum = '') {
+  let dbPath = path.join(appPath, 'tradingpost.db');
+  let db = SQL.dbOpen(dbPath);
+  if (councilnum === null) {
+    let councilnum = 'BSA123'
+  }
+  console.log('start of getDistrictsByCouncil in model', councilnum, db)
+  if (db !== null) {
+    try {
+      let districts = [];
+
+      // Get districts by council
+      let statement = db.prepare('SELECT * FROM `district` WHERE mdm_council_id = ?', [councilnum])
+      while (statement.step()) {
+        districts.push(statement.getAsObject());
+      }
+
+      console.log('getDistrictsByCouncil districts ', districts)
+      if (districts !== undefined && districts.length > 0) {
+        return districts;
+      }
+    } catch (error) {
+      //  print the error
+      console.log('Cannot read getDistrictsByCouncil database file.', error.message)
     } finally {
       SQL.dbClose(db, dbPath)
     }

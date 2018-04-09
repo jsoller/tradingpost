@@ -1,5 +1,4 @@
-UNIT_ID	MDM_DISTRICT_ID	MDM_LKP_UNIT_TYPE_ID	NBR	CHARTER_ORG_NAME	LDS_FLAG	FREEZE_UNIT_FLAG	FREEZE_UNIT_MSG	FREEZE_UDA_FLAG	FREEZE_UDA_NOTE	UNIT_NAME_FULL
-
+ 
 CREATE TABLE
 IF NOT EXISTS unit
 (
@@ -22,6 +21,8 @@ COLLATE NOCASE ASC);
 CREATE INDEX "unitidindex" ON unit (unit_id
 COLLATE NOCASE ASC);
 INSERT INTO unit
+  (unit_id, mdm_district_id, mdm_lkp_unit_type_id, unit_nbr, charter_org_name, lds_flag, freeze_unit_flag, freeze_unit_msg, freeze_uda_flag, freeze_uda_note, unit_name_full)
+VALUES
 (12191, 212, 1, 122, "Norfolk Noon Kiwanis", 0, 0, " ", 0, " ", "Diamond Dick Pack 122"),
 (12192, 212, 1, 124, "Veterans of Foreign Wars", 0, 0, " ", 0, " ", "Diamond Dick Pack 124"),
 (12193, 212, 1, 129, "VFW Auxilary Post 3602", 0, 0, " ", 0, " ", "Diamond Dick Pack 129"),
@@ -621,5 +622,9 @@ INSERT INTO unit
 (36049, 298, 2, 322, "Nothing But", 0, 0, " ", 0, " ", "Scoutreach Troop 322"),
 (36050, 298, 2, 630, "Marrs Middle", 0, 0, " ", 0, " ", "Scoutreach Troop 630"),
 (36059, 298, 2, 815, "Boys & Girls Club", 0, 0, " ", 0, " ", "Scoutreach Troop 815"),
-(36020, 298, 2, 1221, "Collective for Youth", 0, 0, " ", 0, " ", "Scoutreach Troop 1221")
+(36020, 298, 2, 1221, "Collective for Youth", 0, 0, " ", 0, " ", "Scoutreach Troop 1221"),
+(10010, 101, 2, 123, "St Michael", 0, 0, " ", 0, " ", "Buckeye Troop 123"),
+(10011, 101, 2, 474, "Overbrook", 0, 0, " ", 0, " ", "Buckeye Troop 474"),
+(10021, 102, 2, 621, "Vineyard", 0, 0, " ", 0, " ", "Arrowhead Troop 621"),
+(10022, 102, 2, 333, "St Paul", 0, 0, " ", 0, " ", "Arrowhead Troop 333")
  ;

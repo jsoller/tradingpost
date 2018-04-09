@@ -15,17 +15,17 @@ const receiveProducts = products => ({
 //   })
 // }
 
-export const getAllProducts = () => dispatch => {
-  shop.getProducts(products => {
-    dispatch(receiveProducts(products))
-  })
-}
+// export const getAllProducts = () => dispatch => {
+//   shop.getProducts(products => {
+//     dispatch(receiveProducts(products))
+//   })
+// }
 
-export const getAllProductsByType = () => dispatch => {
-  shop.getProductsByType(products => {
-    dispatch(receiveProducts(products))
-  })
-}
+// export const getAllProductsByType = () => dispatch => {
+//   shop.getProductsByType(products => {
+//     dispatch(receiveProducts(products))
+//   })
+// }
 
 const addToCartUnsafe = productId => ({
   type: types.ADD_TO_CART,
