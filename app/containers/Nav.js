@@ -22,7 +22,7 @@ export default class Home extends Component<Props> {
                   <Link to="/payment">Payment</Link>
                 </NavItem>
                 <NavItem onClick={() => getProductsIPC('productByType', 'F')}>
-                  <a href="#">Refresh</a>
+                  <span>Refresh</span>
                 </NavItem>
               </Nav>
             </Navbar>
