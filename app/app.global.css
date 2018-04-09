@@ -32,8 +32,8 @@ li {
 }
 
 a {
-  color: white;
-  opacity: 0.75;
+  color: black;
+  opacity: 0.50;
   text-decoration: none;
 }
 
@@ -41,4 +41,17 @@ a:hover {
   opacity: 1;
   text-decoration: none;
   cursor: pointer;
+}
+
+.navbar img {
+  height: 40px;
+}
+
+.navbar a {
+  font-size: 1.1em;
+  margin-right: 15px;
+}
+
+.navbar a:hover {
+  color: black;
 }
