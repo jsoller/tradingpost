@@ -53,6 +53,11 @@ a:hover, .navbar span {
   color: black;
 }
 
+.checkout-list {
+  display: flex;
+  flex-flow: row;
+}
+
 .checkout-btn {
   background: white;
   color: black;
