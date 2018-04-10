@@ -48,3 +48,16 @@ a:hover, .navbar span {
 .navbar a:hover, .navbar span:hover {
   color: black;
 }
+
+.checkout-btn {
+  background: white;
+  color: black;
+  text-align: center;
+  margin: 5px;
+  width: 100%;
+}
+
+.checkout-btn:hover, .checkout-btn a:hover {
+  background: lightgray;
+  color: black;
+}
