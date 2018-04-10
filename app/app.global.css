@@ -36,6 +36,10 @@ a:hover, .navbar span {
   cursor: pointer;
 }
 
+.navbar h2 {
+  margin-bottom: 0px;
+}
+
 .navbar img {
   height: 40px;
 }
