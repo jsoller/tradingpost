@@ -67,65 +67,70 @@ app.on('ready', async () => {
     height: 728
   });
 
+  const databaseLocation = app.getPath('userData');
+  console.log('main.dev.js', 'database location is "' + databaseLocation + '"')
   ipcMain.on(ipcTypes.IPC_TO_MAIN, (event, args) => {
     console.log('main.dev.js todo', args.todo, ' prodtype ', args.todotype)
-    if (args !== undefined && args.todo === 'product') {
-      const products = Object.values(model.getProducts(app.getPath('userData')));
+    if (!args) {
+      console.log('main.dev.js', 'nothing from IPC to process');
+    }
+    else if (args.todo === 'product') {
+      const products = Object.values(model.getProducts(databaseLocation));
       event.sender.send(ipcTypes.IPC_TO_RENDER, {
         type: types.RECEIVE_PRODUCTS,
         products
       });
     }
-    else if (args !== undefined && args.todo === 'productByType') {
+    else if (args.todo === 'productByType') {
       let prodtype = 'F';
       if (args.todotype !== undefined) {
         prodtype = args.todotype;
       }
       console.log('call getProductsByType from main.dev.js', prodtype)
-      const products = Object.values(model.getProductsByType(app.getPath('userData'), prodtype));
+      const products = Object.values(model.getProductsByType(databaseLocation, prodtype));
       event.sender.send(ipcTypes.IPC_TO_RENDER, {
         type: types.RECEIVE_PRODUCTS,
         products
       });
     }
-    else if (args !== undefined && args.todo === 'productByName') {
+    else if (args.todo === 'productByName') {
       let prodname = ' ';
       console.log('productsByName code')
       if (args.todotype !== undefined) {
         prodname = args.todotype;
       }
       console.log('call getProductsByName from main.dev.js', prodname)
-      const products = Object.values(model.getProductsByName(app.getPath('userData'), prodname));
+      const products = Object.values(model.getProductsByName(databaseLocation, prodname));
       event.sender.send(ipcTypes.IPC_TO_RENDER, {
         type: types.RECEIVE_PRODUCTS,
         products
       });
     }
-    else if (args !== undefined && args.todo === 'council') {
+    else if (args.todo === 'council') {
       console.log('call getCouncil from main.dev.js')
-      const councils = Object.values(model.getCouncils(app.getPath('userData')));
+      const councils = Object.values(model.getCouncils(databaseLocation));
       event.sender.send(ipcTypes.IPC_TO_RENDER, {
         type: types.RECEIVE_COUNCILS,
         councils
       });
     }
-    else if (args !== undefined && args.todo === 'district') {
+    else if (args.todo === 'district') {
       console.log('call getDistrictsByCouncil from main.dev.js (args)', args.todotype)
       let councilnum = args.todotype
       if (!councilnum) {
         councilnum = 'BSA326'
       }
       console.log('call getDistrictsByCouncil from main.dev.js', councilnum)
-      const districts = Object.values(model.getDistrictsByCouncil(app.getPath('userData'), councilnum));
+      const districts = Object.values(model.getDistrictsByCouncil(databaseLocation, councilnum));
       event.sender.send(ipcTypes.IPC_TO_RENDER, {
         type: types.RECEIVE_DISTRICTS,
         districts
       });
     }
   });
-  
 
-  model.initDb(app.getPath('userData'),
+
+  model.initDb(databaseLocation,
     mainWindow.loadURL(`file://${__dirname}/app.html`)
   )
 
