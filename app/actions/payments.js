@@ -1,18 +1,27 @@
 import * as types from '../constants/ActionTypes';
-import { getDistrictsIPC } from './ipcHandler';
+import { getUnitTypesIPC, getUnitsByCouncilIPC } from './ipcHandler';
 
-export const councilSelected = council => (dispatch, getState) => {
+export const councilSelected = councilid => (dispatch, getState) => {
     dispatch({
         type: types.COUNCIL_SELECTED,
-        council,
+        councilid,
     });
-    getDistrictsIPC('district', council.orgkey);
+    getUnitTypesIPC('unittype');
+    let council = getState().payments.councils.find(council => councilid == council.id);
+    getUnitsByCouncilIPC('unitByCouncil', council.orgkey);
 }
 
-export const districtSelected = district => (dispatch, getState) => {
+export const unittypeSelected = unittype => (dispatch, getState) => {
     dispatch({
-        type: types.DISTRICT_SELECTED,
-        district,
+        type: types.UNITTYPE_SELECTED,
+        unittype,
+    });
+}
+
+export const unitSelected = unit => (dispatch, getState) => {
+    dispatch({
+        type: types.UNIT_SELECTED,
+        unit,
     });
 }
 

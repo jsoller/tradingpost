@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import * as types from '../constants/ActionTypes';
 
-export function councils (state = [], action) {
+export function councils(state = [], action) {
     switch (action.type) {
         case types.RECEIVE_COUNCILS:
             return action.councils;
@@ -10,36 +10,56 @@ export function councils (state = [], action) {
     }
 }
 
-export function councilSelected (state = {}, action) {
+export function councilSelected(state = '', action) {
     switch (action.type) {
         case types.COUNCIL_SELECTED:
-        return action.council;
-        default:
-        return state;
-    }
-}
-
-export function districts (state = [], action) {
-    switch (action.type) {
-        case types.RECEIVE_DISTRICTS:
-            return action.districts;
+            return action.councilid;
         default:
             return state;
     }
 }
 
-export function districtSelected (state = {}, action) {
+export function unittypes(state = [], action) {
     switch (action.type) {
-        case types.DISTRICT_SELECTED:
-           return action.district;
+        case types.RECEIVE_UNITTYPES:
+            return action.unittypes;
         default:
-           return state;
+            return state;
+    }
+}
+
+export function unittypeSelected(state = {}, action) {
+    switch (action.type) {
+        case types.UNITTYPE_SELECTED:
+            return action.unittype;
+        default:
+            return state;
+    }
+}
+
+export function units(state = [], action) {
+    switch (action.type) {
+        case types.RECEIVE_UNITS:
+            return action.units;
+        default:
+            return state;
+    }
+}
+
+export function unitSelected(state = {}, action) {
+    switch (action.type) {
+        case types.UNIT_SELECTED:
+            return action.unit;
+        default:
+            return state;
     }
 }
 
 export default combineReducers({
     councils,
     councilSelected,
-    districts,
-    districtSelected,
+    unittypes,
+    unittypeSelected,
+    units,
+    unitSelected,
 })

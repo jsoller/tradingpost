@@ -70,7 +70,7 @@ app.on('ready', async () => {
   const databaseLocation = app.getPath('userData');
   console.log('main.dev.js', 'database location is "' + databaseLocation + '"')
   ipcMain.on(ipcTypes.IPC_TO_MAIN, (event, args) => {
-    console.log('main.dev.js todo', args.todo, ' prodtype ', args.todotype)
+    console.log('main.dev.js todo', args.todo, ' todotype ', args.todotype)
     if (!args) {
       console.log('main.dev.js', 'nothing from IPC to process');
     }
@@ -86,7 +86,7 @@ app.on('ready', async () => {
       if (args.todotype !== undefined) {
         prodtype = args.todotype;
       }
-      console.log('call getProductsByType from main.dev.js', prodtype)
+      console.log('call getProductsByType from main', prodtype)
       const products = Object.values(model.getProductsByType(databaseLocation, prodtype));
       event.sender.send(ipcTypes.IPC_TO_RENDER, {
         type: types.RECEIVE_PRODUCTS,
@@ -99,7 +99,7 @@ app.on('ready', async () => {
       if (args.todotype !== undefined) {
         prodname = args.todotype;
       }
-      console.log('call getProductsByName from main.dev.js', prodname)
+      console.log('call getProductsByName from main', prodname)
       const products = Object.values(model.getProductsByName(databaseLocation, prodname));
       event.sender.send(ipcTypes.IPC_TO_RENDER, {
         type: types.RECEIVE_PRODUCTS,
@@ -107,27 +107,35 @@ app.on('ready', async () => {
       });
     }
     else if (args.todo === 'council') {
-      console.log('call getCouncil from main.dev.js')
+      console.log('call getCouncil from main')
       const councils = Object.values(model.getCouncils(databaseLocation));
       event.sender.send(ipcTypes.IPC_TO_RENDER, {
         type: types.RECEIVE_COUNCILS,
         councils
       });
     }
-    else if (args.todo === 'district') {
-      console.log('call getDistrictsByCouncil from main.dev.js (args)', args.todotype)
-      let councilnum = args.todotype
-      if (!councilnum) {
-        councilnum = 'BSA326'
-      }
-      console.log('call getDistrictsByCouncil from main.dev.js', councilnum)
-      const districts = Object.values(model.getDistrictsByCouncil(databaseLocation, councilnum));
+    else if (args.todo === 'unittype') {
+      console.log('call getUnitTypes from main')
+      const unittypes = Object.values(model.getUnitTypes(databaseLocation));
       event.sender.send(ipcTypes.IPC_TO_RENDER, {
-        type: types.RECEIVE_DISTRICTS,
-        districts
+        type: types.RECEIVE_UNITTYPES,
+        unittypes
       });
     }
-  });
+    else if (args.todo === 'unitByCouncil') {
+    let councilnum = ' ';
+    console.log('call getUnitsByCouncil from main')
+    if (args.todotype !== undefined) {
+      councilnum = args.todotype;
+    }
+    console.log('councilnum', councilnum)
+    const units = Object.values(model.getUnitsByCouncil(databaseLocation, councilnum));
+    event.sender.send(ipcTypes.IPC_TO_RENDER, {
+      type: types.RECEIVE_UNITS,
+      units
+    });
+  }
+});
 
 
   model.initDb(databaseLocation,

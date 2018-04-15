@@ -7,7 +7,8 @@ export let startListener = (store) => {
     });
   getProductsIPC('product', null);
   getCouncilsIPC('council');
-  getDistrictsIPC('district', null);
+  getUnitTypesIPC('unittype');
+  getUnitsByCouncilIPC('unitByCouncil', ' ');
 }
 
 export let getProductsIPC = (productsquery, producttype) => {
@@ -24,10 +25,16 @@ export let getCouncilsIPC = (councilsquery) => {
         { todo: councilsquery }
     );
 }
-export let getDistrictsIPC = (districtsquery, councilnum) => {
+export let getUnitTypesIPC = (unittypesquery) => {
     ipcRenderer.send(
         ipcTypes.IPC_TO_MAIN,
-        { todo: districtsquery,
-          todotype: councilnum }
+        { todo: unittypesquery }
+    );
+}
+export let getUnitsByCouncilIPC = (unitsquery, councilnum) => {
+    ipcRenderer.send(
+        ipcTypes.IPC_TO_MAIN,
+        { todo: unitsquery,
+        todotype: councilnum }
     );
 }

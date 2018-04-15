@@ -82,8 +82,11 @@ module.exports.initDb = function (appPath, callback) {
       path.join(__dirname, 'db', 'councilSchema.sql'), 'utf8');
     let councilresult = db.exec(councilquery)
     let districtquery = fs.readFileSync(
-       path.join(__dirname, 'db', 'districtSchema.sql'), 'utf8');
+      path.join(__dirname, 'db', 'districtSchema.sql'), 'utf8');
     let districtresult = db.exec(districtquery)
+    let unittypequery = fs.readFileSync(
+      path.join(__dirname, 'db', 'unittypeSchema.sql'), 'utf8');
+    let unittyperesult = db.exec(unittypequery)
     let unitquery = fs.readFileSync(
        path.join(__dirname, 'db', 'unitSchema.sql'), 'utf8');
     let unitresult = db.exec(unitquery)
@@ -240,7 +243,6 @@ module.exports.getCouncils = function (appPath) {
         councils.push(statement.getAsObject());
       }
 
-      console.log('getCouncils ', councils)
       if (councils !== undefined && councils.length > 0) {
         return councils;
       }
@@ -254,30 +256,57 @@ module.exports.getCouncils = function (appPath) {
   return [];
 }
               
-module.exports.getDistrictsByCouncil = function (appPath, councilnum = '') {
+module.exports.getUnitTypes = function (appPath) {
   let dbPath = path.join(appPath, 'tradingpost.db');
   let db = SQL.dbOpen(dbPath);
-  if (councilnum === null) {
-    let councilnum = 'BSA123'
-  }
-  console.log('start of getDistrictsByCouncil in model', councilnum, db)
+  console.log('start of getUnitTypes in model', db)
   if (db !== null) {
     try {
-      let districts = [];
+      let unittypes = [];
 
-      // Get districts by council
-      let statement = db.prepare('SELECT * FROM `district` WHERE mdm_council_id = ?', [councilnum])
+      // Get unit types
+      let statement = db.prepare('SELECT * FROM `unittype`')
       while (statement.step()) {
-        districts.push(statement.getAsObject());
+        unittypes.push(statement.getAsObject());
       }
 
-      console.log('getDistrictsByCouncil districts ', districts)
-      if (districts !== undefined && districts.length > 0) {
-        return districts;
+      if (unittypes !== undefined && unittypes.length > 0) {
+        return unittypes;
       }
     } catch (error) {
       //  print the error
-      console.log('Cannot read getDistrictsByCouncil database file.', error.message)
+      console.log('Cannot read getUnitTypes database file.', error.message)
+    } finally {
+      SQL.dbClose(db, dbPath)
+    }
+  }
+  return [];
+}
+/*
+  Populates the Unit List by council
+*/
+module.exports.getUnitsByCouncil = function (appPath, councilnum = '') {
+  console.log('councilnum', councilnum)
+  let dbPath = path.join(appPath, 'tradingpost.db');
+  let db = SQL.dbOpen(dbPath);
+  console.log('start of getUnitsByCouncil in model', councilnum)
+  if (db !== null) {
+    try {
+      let units = [];
+
+      // Get units by council
+      let statement = db.prepare('SELECT u.* FROM `unit` u, `district` d WHERE d.district_id = u.mdm_district_id and d.mdm_council_id = ?', [councilnum])
+      while (statement.step()) {
+        units.push(statement.getAsObject());
+      }
+
+      console.log('getUnitsByCouncil units ', units[0], ' length ', units.length, ' councilnum ', councilnum)
+      if (units !== undefined && units.length > 0) {
+        return units;
+      }
+    } catch (error) {
+      //  print the error
+      console.log('Cannot read getUnitsByCouncil database file.', error.message)
     } finally {
       SQL.dbClose(db, dbPath)
     }
