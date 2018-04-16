@@ -24,4 +24,3 @@ export const unitSelected = unit => (dispatch, getState) => {
         unit,
     });
 }
-

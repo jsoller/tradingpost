@@ -38,3 +38,11 @@ export let getUnitsByCouncilIPC = (unitsquery, councilnum) => {
         todotype: councilnum }
     );
 }
+export let getLocationUserIPC = (loginquery, username, password) => {
+    ipcRenderer.send(
+        ipcTypes.IPC_TO_MAIN,
+        { todo: loginquery,
+        todotype: username,
+        todotype2: password }
+    );
+}

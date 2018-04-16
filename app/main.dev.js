@@ -135,6 +135,23 @@ app.on('ready', async () => {
       units
     });
   }
+  else if (args.todo === 'locationUser') {
+    let username = ' ';
+    console.log('call getLocationUsers from main ', args)
+    if (args.todotype !== undefined) {
+      username = args.todotype;
+    }
+    let password = ' ';
+    if (args.todotype2 !== undefined) {
+      password = args.todotype2;
+    }
+    console.log('call getLocatiionUsers from main')
+    const locationusers = Object.values(model.getLocationUsers(databaseLocation, username, password));
+    event.sender.send(ipcTypes.IPC_TO_RENDER, {
+      type: types.GET_LOCATIONUSERS,
+      locationusers
+    });
+  }
 });
 
 

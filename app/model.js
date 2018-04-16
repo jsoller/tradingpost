@@ -78,6 +78,9 @@ module.exports.initDb = function (appPath, callback) {
   let createDb = function (dbPath) {
     // Create a database.
     let db = new SQL.Database()
+    let locationuserquery = fs.readFileSync(
+      path.join(__dirname, 'db', 'locationuserSchema.sql'), 'utf8');
+    let locationuserresult = db.exec(locationuserquery)
     let councilquery = fs.readFileSync(
       path.join(__dirname, 'db', 'councilSchema.sql'), 'utf8');
     let councilresult = db.exec(councilquery)
@@ -307,6 +310,37 @@ module.exports.getUnitsByCouncil = function (appPath, councilnum = '') {
     } catch (error) {
       //  print the error
       console.log('Cannot read getUnitsByCouncil database file.', error.message)
+    } finally {
+      SQL.dbClose(db, dbPath)
+    }
+  }
+  return [];
+}
+/*
+  Populates the Unit List by council
+*/
+module.exports.getLocationUsers = function (appPath, username = '', password = '') {
+  console.log('locationUser', username)
+  let dbPath = path.join(appPath, 'tradingpost.db');
+  let db = SQL.dbOpen(dbPath);
+  console.log('start of getLocationUsers in model username ', username, ' password ', password)
+  if (db !== null) {
+    try {
+      let locationusers = [];
+
+      // Get units by council
+      let statement = db.prepare('SELECT * FROM `locationuser` WHERE username = ? and password = ?', [username, password])
+      while (statement.step()) {
+        locationusers.push(statement.getAsObject());
+      }
+
+      console.log('getLocationUsers locationusers ', locationusers)
+      if (locationusers !== undefined && locationusers.length > 0) {
+        return locationusers;
+      }
+    } catch (error) {
+      //  print the error
+      console.log('Cannot read getLocationUsers database file.', error.message)
     } finally {
       SQL.dbClose(db, dbPath)
     }

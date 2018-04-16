@@ -6,6 +6,7 @@ import cart, * as fromCart from './cart';
 import processproducts, * as fromQuickProducts from './processproducts';
 import keypad from './keypad';
 import payments from './payments';
+import login from './login'
 
 const getAddedIds = state => fromCart.getAddedIds(state.cart)
 const getQuantity = (state, id) => fromCart.getQuantity(state.cart, id)
@@ -64,6 +65,7 @@ const rootReducer = combineReducers({
   payments,
   processproducts,
   router,
+  login,
 });
 
 export default rootReducer;
