@@ -1,12 +1,11 @@
 // @flow
 import { combineReducers } from 'redux';
 import { routerReducer as router } from 'react-router-redux';
-import counter from './counter';
 import cart, * as fromCart from './cart';
 import processproducts, * as fromQuickProducts from './processproducts';
 import keypad from './keypad';
 import payments from './payments';
-import login from './login'
+import login from './login';
 
 const getAddedIds = state => fromCart.getAddedIds(state.cart)
 const getQuantity = (state, id) => fromCart.getQuantity(state.cart, id)
@@ -59,7 +58,6 @@ export const getCartProducts = state => {
 // }
 
 const rootReducer = combineReducers({
-  counter,
   cart,
   keypad,
   payments,

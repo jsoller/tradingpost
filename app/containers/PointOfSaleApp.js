@@ -5,7 +5,6 @@ import QuickProductsSearchContainer from './QuickProductsSearchContainer';
 import CartHeaderContainer from './CartHeaderContainer';
 import CartContainer from './CartContainer';
 import CartTotalContainer from './CartTotalContainer';
-import SearchContainer from './SearchContainer';
 import CheckoutContainer from './CheckoutContainer';
 import styles from '../components/TradingPost.css';
 
