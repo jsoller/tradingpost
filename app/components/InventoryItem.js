@@ -11,7 +11,7 @@ const InventoryItem = ({ product, onAddToCartClicked }) => (
         <input
             className="form-control"
             type="number" step="1"
-            value={product.inventory}
+            // value={product.inventory}
         // placeholder=''
         // value = ""  //if this is set to null it resets what is entered so do not see letters typed
         // onChange={(searchentry) => getProductsIPC('productByName', searchentry.target.value)}

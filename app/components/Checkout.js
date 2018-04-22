@@ -7,6 +7,9 @@ import { Link } from 'react-router-dom';
 import { Row, Col } from 'reactstrap';
 import { remote } from 'electron';
 import PromptBox from './PromptBox';
+import { checkRestriction } from '../actions/payments';
+import { Redirect } from 'react-router-dom';
+import withRouter from 'react-router-dom/withRouter';
 
 // const Checkout = ({ products, tax, total, onCheckoutClicked, onRestrictionClicked hasRestriction}) => {
 // function getValue() {
@@ -20,52 +23,66 @@ import PromptBox from './PromptBox';
 //                 />
 //             </FormGroup>
 // };
+const checkProducts = (products) => {
+  console.log("restrictioncontainer")
+  let checkneeded = false;
+  products.forEach(product => {
+    if (product.checkId === 1) {
+      checkneeded = true
+    }
+    console.log("checkid ", product.checkId, ' checkneeded ', checkneeded)
+  });
+  return checkneeded;
+};
 
-const Checkout = ({ products, checkout }) => {
+const Checkout = ({ products, history, checkout }) => {
   const hasProducts = products.length > 0;
-  const linkFor = (label) => (
-    <Link
-      className="checkout-btn"
-      to="/payment"
-      onClick={() => checkout(products)}
-      disabled={hasProducts ? '' : 'disabled'}>
-      <li>{label}</li>
-    </Link>
-  );
-  const promptbox = () => (
-    <PromptBox/>
-  );
-  
-  const promptlink = (label) => (
-    <button className="checkout-btn"
-      onClick={() => promptbox()}>
-      <li>{label}</li>
-      </button>
-  );
+  const checkneeded = hasProducts ? (checkProducts(products)) : false;
+  // const linkFor = (label) => (
+  //   <Link
+  //     className="checkout-btn"
+  //     to="/payment"
+  //     onClick={() => checkout(products)}
+  //     disabled={hasProducts ? '' : 'disabled'}>
+  //     <li>{label}</li>
+  //   </Link>
+  //);
 
-  return (
-    <ul className="checkout-list">
-      {hasProducts ? linkFor('Cash') : ''}
-      {hasProducts ? promptlink('Credit Card') : ''}
-      {hasProducts ? linkFor('Check') : ''}
-      {hasProducts ? linkFor('Unit Account') : ''}
-    </ul>
-  )
+const promptbox = () => {
+  if (checkneeded) {
+    alert("Restricted item purchased - validation check needed before checking out")
+  }
+  return history.push("/payment");
+};
+
+const promptlink = (label) => (
+  <button className="checkout-btn"
+    onClick={() => promptbox()}>
+    <li>{label}</li>
+  </button>
+);
+
+return (
+  <ul className="checkout-list">
+    {hasProducts ? promptlink('Cash') : ''}
+    {hasProducts ? promptlink('Credit Card') : ''}
+    {hasProducts ? promptlink('Check') : ''}
+    {hasProducts ? promptlink('Unit Account') : ''}
+  </ul>
+)
 }
 
 
 Checkout.propTypes = {
   products: PropTypes.array,
   checkout: PropTypes.func.isRequired,
-  // onRestrictionClicked: PropTypes.func,
-  // hasRestriction: PropTypes.bool,
 }
 
 
 const mapStateToProps = (state) => ({
 })
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   { checkout }
-)(Checkout)
+)(Checkout))

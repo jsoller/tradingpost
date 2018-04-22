@@ -5,11 +5,8 @@ export function locationusers(state = [], action) {
     switch (action.type) {
         case GET_LOCATIONUSERS:
             const locationusers = action.locationusers;
-            if (locationusers !== undefined && locationusers.length > 0) {
-                alert("FOUND");
-            }
-            else {
-                alert("NOT FOUND");
+            if (locationusers == undefined || locationusers.length <= 0) {
+                alert("User Name or Password is not valid");
             }
             return locationusers;
         default:

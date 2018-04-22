@@ -18,10 +18,11 @@ const addedIds = (state = initialState.addedIds, action) => {
       }
       return [...state, action.productId]
     case REMOVE_FROM_CART:
-      if (state.indexOf(action.productId) !== -1) {
-        return state
+      if (action.quantity > 0) {
+        return state;
+      } else {
+        return state.filter(productId => productId !== action.productId);
       }
-      return [...state, action.productId]
     default:
       return state
   }
@@ -36,9 +37,17 @@ const quantityById = (state = initialState.quantityById, action) => {
         [productId]: (state[productId] || 0) + 1,
       }
     case REMOVE_FROM_CART:
-      return {
-        ...state,
-        [productId]: (state[productId] || 0) - 1,
+      let currentQuantity = (state[productId] || 0) - 1;
+      if (currentQuantity <= 0) {
+        delete state[productId];
+        return {
+          ...state
+        };
+      } else {
+        return {
+          ...state,
+          [productId]: currentQuantity,
+        };
       }
     default:
       return state
