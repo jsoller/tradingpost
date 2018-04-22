@@ -148,7 +148,7 @@ module.exports.getProducts = function (appPath) {
   let dbPath = path.join(appPath, 'tradingpost.db');
   let db = SQL.dbOpen(dbPath);
   if (db !== null) {
-    let query = 'SELECT * FROM `products`'
+    let query = 'SELECT * FROM `products` ORDER BY productname'
     try {
       let products = db.exec(query)
       if (products !== undefined && products.length > 0) {
@@ -209,7 +209,7 @@ module.exports.getProductsByName = function (appPath, searchname = ' ') {
       let products = [];
 
       // Get products by type
-      let statement = db.prepare('SELECT * FROM `products` WHERE productname like ?', [searchnameformat])
+      let statement = db.prepare('SELECT * FROM `products` WHERE productname like ? ORDER BY productname', [searchnameformat])
       while (statement.step()) {
         products.push(statement.getAsObject());
       }

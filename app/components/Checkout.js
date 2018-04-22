@@ -5,8 +5,21 @@ import { connect } from 'react-redux';
 import { checkout } from '../actions/pointOfSale';
 import { Link } from 'react-router-dom';
 import { Row, Col } from 'reactstrap';
+import { remote } from 'electron';
+import PromptBox from './PromptBox';
 
 // const Checkout = ({ products, tax, total, onCheckoutClicked, onRestrictionClicked hasRestriction}) => {
+// function getValue() {
+//   <FormGroup check className="sm">
+//                 <Label>Enter Credit Card Authorization</Label>
+//                 <Input
+//                     autoFocus
+//                     type="text"
+//                     value=''
+//                     // onChange={(event) => this.handleChange(event, 'username')}
+//                 />
+//             </FormGroup>
+// };
 
 const Checkout = ({ products, checkout }) => {
   const hasProducts = products.length > 0;
@@ -19,13 +32,23 @@ const Checkout = ({ products, checkout }) => {
       <li>{label}</li>
     </Link>
   );
+  const promptbox = () => (
+    <PromptBox/>
+  );
+  
+  const promptlink = (label) => (
+    <button className="checkout-btn"
+      onClick={() => promptbox()}>
+      <li>{label}</li>
+      </button>
+  );
 
   return (
     <ul className="checkout-list">
-      {linkFor('Cash')}
-      {linkFor('Credit Card')}
-      {linkFor('Check')}
-      {linkFor('Unit Account')}
+      {hasProducts ? linkFor('Cash') : ''}
+      {hasProducts ? promptlink('Credit Card') : ''}
+      {hasProducts ? linkFor('Check') : ''}
+      {hasProducts ? linkFor('Unit Account') : ''}
     </ul>
   )
 }

@@ -21,6 +21,9 @@ export default class Home extends Component<Props> {
                 <NavItem>
                   <Link to="/payment">Payment</Link>
                 </NavItem>
+                <NavItem>
+                  <Link to="/inventory">Inventory</Link>
+                </NavItem>
                 <NavItem onClick={() => getProductsIPC('productByType', 'F')}>
                   <span>Refresh</span>
                 </NavItem>
