@@ -23,22 +23,24 @@ const PaymentPage = () => (
       <CreditCardContainer />
     </Row>
     <Row>
+      <CartTotalContainer />
+    </Row >
+    <Row>
       <Col>
-        <CartTotalContainer />
       </Col>
-      <Col>
-      </Col>
-      <Col>
+    <Col>
+    </Col>
+    <Col>
       <CashPaymentContainer />
-        </Col>
+    </Col>
     </Row>
-  </Container>
+  </Container >
 )
 
 const mapStateToProps = (state) => ({
 })
 
 export default connect(
-    mapStateToProps,
-    {}
+  mapStateToProps,
+  {}
 )(PaymentPage)

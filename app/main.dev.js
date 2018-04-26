@@ -15,6 +15,7 @@ import MenuBuilder from './menu';
 import * as model from './model';
 import * as ipcTypes from './constants/IpcTypes';
 import * as types from './constants/ActionTypes';
+import * as fs from 'fs';
 
 let mainWindow = null;
 
@@ -123,36 +124,50 @@ app.on('ready', async () => {
       });
     }
     else if (args.todo === 'unitByCouncil') {
-    let councilnum = ' ';
-    console.log('call getUnitsByCouncil from main')
-    if (args.todotype !== undefined) {
-      councilnum = args.todotype;
+      let councilnum = ' ';
+      console.log('call getUnitsByCouncil from main')
+      if (args.todotype !== undefined) {
+        councilnum = args.todotype;
+      }
+      console.log('councilnum', councilnum)
+      const units = Object.values(model.getUnitsByCouncil(databaseLocation, councilnum));
+      event.sender.send(ipcTypes.IPC_TO_RENDER, {
+        type: types.RECEIVE_UNITS,
+        units
+      });
     }
-    console.log('councilnum', councilnum)
-    const units = Object.values(model.getUnitsByCouncil(databaseLocation, councilnum));
-    event.sender.send(ipcTypes.IPC_TO_RENDER, {
-      type: types.RECEIVE_UNITS,
-      units
-    });
-  }
-  else if (args.todo === 'locationUser') {
-    let username = ' ';
-    console.log('call getLocationUsers from main ', args)
-    if (args.todotype !== undefined) {
-      username = args.todotype;
+    else if (args.todo === 'locationUser') {
+      let username = ' ';
+      console.log('call getLocationUsers from main ', args)
+      if (args.todotype !== undefined) {
+        username = args.todotype;
+      }
+      let password = ' ';
+      if (args.todotype2 !== undefined) {
+        password = args.todotype2;
+      }
+      console.log('call getLocatiionUsers from main')
+      const locationusers = Object.values(model.getLocationUsers(databaseLocation, username, password));
+      event.sender.send(ipcTypes.IPC_TO_RENDER, {
+        type: types.GET_LOCATIONUSERS,
+        locationusers
+      });
     }
-    let password = ' ';
-    if (args.todotype2 !== undefined) {
-      password = args.todotype2;
+    else if (args.todo === 'loadcsvFileName') {
+      let csvFileName = args.csvFileName;
+      //var stream = fs.createReadStream(csvFileName);
+      console.log("csvfilename", csvFileName);
+      fs.readFile(csvFileName, function (err, data) { console.log(new String(data)); });
+      //add the fs csv logic
     }
-    console.log('call getLocatiionUsers from main')
-    const locationusers = Object.values(model.getLocationUsers(databaseLocation, username, password));
-    event.sender.send(ipcTypes.IPC_TO_RENDER, {
-      type: types.GET_LOCATIONUSERS,
-      locationusers
-    });
-  }
-});
+    else if (args.todo === 'savecsvFileName') {
+      let csvFileName = args.csvFileName;
+      //var stream = fs.createReadStream(csvFileName);
+      console.log("csvfilename", csvFileName);
+      fs.writeFile(csvFileName, function (err, data) { console.log(new String(data)); });
+      //add the fs csv logic
+    }
+  });
 
 
   model.initDb(databaseLocation,

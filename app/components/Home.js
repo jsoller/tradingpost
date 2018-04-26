@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import styles from './Home.css';
 import { Container, Row, Col } from 'reactstrap';
 import Login from './Login';
+import FileProcessing from './FileProcessing';
 
 type Props = {};
 
@@ -17,11 +18,14 @@ export default class Home extends Component<Props> {
         <Link className={styles.continue} to="/p">Proceed to store...</Link>
         <Row></Row>
         <Row></Row>
-      <Row>
-        <Col>
-          <Login />
-        </Col>
-      </Row>
+        <Row>
+          <Col>
+            <Login />
+          </Col>
+        </Row>
+        <Row>
+          <FileProcessing />
+        </Row>
       </Container >
     );
   }
