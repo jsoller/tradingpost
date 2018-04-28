@@ -16,6 +16,7 @@ import * as model from './model';
 import * as ipcTypes from './constants/IpcTypes';
 import * as types from './constants/ActionTypes';
 import * as fs from 'fs';
+import * as csv from 'fast-csv';
 
 let mainWindow = null;
 
@@ -156,16 +157,77 @@ app.on('ready', async () => {
     else if (args.todo === 'loadcsvFileName') {
       let csvFileName = args.csvFileName;
       //var stream = fs.createReadStream(csvFileName);
-      console.log("csvfilename", csvFileName);
+      console.log("main.dev csvfilename", csvFileName);
       fs.readFile(csvFileName, function (err, data) { console.log(new String(data)); });
       //add the fs csv logic
+      var tableName = '';
+      var tableColumns = [];
+      var conversions = {
+        UNIT: {
+          LDS_FLAG: (data) => {
+            return data === '1' ? 1 : 0;
+          },
+          FREEZE_UDA_FLAG: (data) => {
+            return data === '1';
+          }
+        },
+        UNIT_TYPE: {
+          ID: (data) => {
+            return parseInt(data);
+          }
+        }
+      };
+
+      var stream = fs.createReadStream(csvFileName);
+      csv
+        .fromStream(stream)
+        .on("data", function (data) {
+          // Are there new headers?
+          if (tableName !== data[0]) {
+            tableName = data[0];
+            tableColumns = data.map(column => column.toLowerCase());
+          } else {
+            // Nope, this is new data!
+            var newData = {};
+            var conversion = conversions[tableName];
+            for (var i = 1; i < tableColumns.length; i++) {
+              let columnName = tableColumns[i];
+              if (columnName === '') {
+                // Nothing
+              } else if (conversion && conversion[columnName]) {
+                newData[columnName] = conversion[columnName](data[i]);
+              } else {
+                newData[columnName] = data[i];
+              }
+            }
+            var insertObj = {
+              type: tableName.toLowerCase(),
+              data: newData,
+            };
+            console.log(insertObj);
+            // call an insert function to load the table
+            model.insertData(databaseLocation, insertObj);
+          }
+        })
+        .on("end", function () {
+          console.log("done");
+        });
     }
     else if (args.todo === 'savecsvFileName') {
       let csvFileName = args.csvFileName;
-      //var stream = fs.createReadStream(csvFileName);
       console.log("csvfilename", csvFileName);
       fs.writeFile(csvFileName, function (err, data) { console.log(new String(data)); });
       //add the fs csv logic
+      var stream = fs.createReadStream(csvFileName);
+      var csvStream = csv()
+        .on("data", function (data) {
+          console.log("data", data);
+        })
+        .on("end", function () {
+          console.log("done");
+        });
+
+      stream.pipe(csvStream);
     }
   });
 

@@ -91,7 +91,7 @@ module.exports.initDb = function (appPath, callback) {
       path.join(__dirname, 'db', 'unittypeSchema.sql'), 'utf8');
     let unittyperesult = db.exec(unittypequery)
     let unitquery = fs.readFileSync(
-       path.join(__dirname, 'db', 'unitSchema.sql'), 'utf8');
+      path.join(__dirname, 'db', 'unitSchema.sql'), 'utf8');
     let unitresult = db.exec(unitquery)
     let query = fs.readFileSync(
       path.join(__dirname, 'db', 'productSchema.sql'), 'utf8');
@@ -258,7 +258,7 @@ module.exports.getCouncils = function (appPath) {
   }
   return [];
 }
-              
+
 module.exports.getUnitTypes = function (appPath) {
   let dbPath = path.join(appPath, 'tradingpost.db');
   let db = SQL.dbOpen(dbPath);
@@ -347,3 +347,27 @@ module.exports.getLocationUsers = function (appPath, username = '', password = '
   }
   return [];
 }
+/*
+  Insert data into tables
+*/
+module.exports.insertData = function (appPath, insertObj) {
+  console.log('insertData', insertObj)
+  let dbPath = path.join(appPath, 'tradingpost.db');
+  let db = SQL.dbOpen(dbPath);
+
+  if (db !== null) {
+    try {
+      let type = insertObj.type;
+      let data = insertObj.data;
+      let sql = 'INSERT INTO `' + type + '` (' + Object.keys(data).join(",") + ') VALUES (' + Object.values(data).map(function (value) { return "?" }).join(",") + ')';
+      let statement = db.prepare(sql);
+      statement.run(Object.values(data));
+    } catch (error) {
+      //  print the error
+      console.log('Cannot insert data into database file.', type, error.message)
+    } finally {
+      SQL.dbClose(db, dbPath)
+    }
+  }
+}
+
