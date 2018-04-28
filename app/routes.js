@@ -7,6 +7,8 @@ import PointOfSaleApp from './containers/PointOfSaleApp';
 import PaymentPage from './containers/PaymentPage';
 import InventoryPage from './containers/InventoryPage';
 import { connect } from 'react-redux';
+import CreditCardInfo from './components/CreditCardInfo';
+import * as pages from './constants/Pages';
 
 const AuthedRoute = ({ validSignOn, component: Component, ...rest }) => (
   <Route
@@ -28,10 +30,10 @@ const AuthedRoute = ({ validSignOn, component: Component, ...rest }) => (
 const Routes = ({ validSignOn }) => (
   <App>
     <Switch>
-      <Route exact path="/" component={HomePage} />
-      <AuthedRoute validSignOn={validSignOn} path="/inventory" component={InventoryPage} />
-      <AuthedRoute validSignOn={validSignOn} path="/payment" component={PaymentPage} />
-      <AuthedRoute validSignOn={validSignOn} path="/p" component={PointOfSaleApp} />
+      <Route exact path={pages.LOGIN} component={HomePage} />
+      <AuthedRoute validSignOn={validSignOn} path={pages.INVENTORY} component={InventoryPage} />
+      <AuthedRoute validSignOn={validSignOn} path={pages.PAYMENT} component={PaymentPage} />
+      <AuthedRoute validSignOn={validSignOn} path={pages.POINT_OF_SALE} component={PointOfSaleApp} />
     </Switch>
   </App>
 );
