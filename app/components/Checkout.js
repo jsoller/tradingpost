@@ -7,6 +7,7 @@ import { remote } from 'electron';
 import PromptBox from './PromptBox';
 import { Redirect } from 'react-router-dom';
 import withRouter from 'react-router-dom/withRouter';
+import * as pages from '../constants/Pages';
 
 // const Checkout = ({ products, tax, total, onCheckoutClicked, onRestrictionClicked hasRestriction}) => {
 
@@ -42,10 +43,10 @@ const Checkout = ({ products, history, checkout }) => {
 
   return (
     <ul className="checkout-list">
-      {hasProducts ? promptlink('Cash', '/payment') : ''}
-      {hasProducts ? promptlink('Credit Card', '/payment') : ''}
-      {hasProducts ? promptlink('Check', '/payment') : ''}
-      {hasProducts ? promptlink('Unit Account', '/payment') : ''}
+      {hasProducts ? promptlink('Cash', pages.PAYMENT) : ''}
+      {hasProducts ? promptlink('Credit Card', pages.PAYMENT) : ''}
+      {hasProducts ? promptlink('Check', pages.PAYMENT) : ''}
+      {hasProducts ? promptlink('Unit Account', pages.PAYMENT) : ''}
     </ul>
   )
 }

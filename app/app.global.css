@@ -4,6 +4,7 @@
  */
 @import "~font-awesome/css/font-awesome.css";
 @import "~bootstrap/dist/css/bootstrap.css";
+@import "~react-select/dist/react-select.css";
 
 html, body {
   margin: 0;

@@ -151,3 +151,7 @@
 .popup_visible {
     display: block;
 }
+
+.council_search_unit_entry_box {
+    width: 150px;
+}
