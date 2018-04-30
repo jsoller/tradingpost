@@ -67,7 +67,7 @@ SQL.dbClose = function (databaseHandle, databaseFileName) {
 }
 
 /*
-  A function to create a new SQLite3 database from productSchema.sql.
+  A function to create a new SQLite3 database 
 
   This function is called from main.js during initialization and that's why
   it's passed appPath. The rest of the model operates from renderer and uses
@@ -107,10 +107,7 @@ module.exports.initDb = function (appPath, callback) {
     let unittyperesult = db.exec(unittypequery)
     let unitquery = fs.readFileSync(
       path.join(__dirname, 'db', 'unitSchema.sql'), 'utf8');
-    let unitresult = db.exec(unitquery)
-    let query = fs.readFileSync(
-      path.join(__dirname, 'db', 'productSchema.sql'), 'utf8');
-    let result = db.exec(query)
+    let result = db.exec(unitquery)
     if (Object.keys(result).length === 0 &&
       typeof result.constructor === 'function' &&
       SQL.dbClose(db, dbPath)) {
