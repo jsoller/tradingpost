@@ -388,7 +388,6 @@ console.log('after call ', locations)
   Insert data into tables
 */
 module.exports.insertData = function (appPath, insertObj) {
-  console.log('insertData', insertObj)
   let dbPath = path.join(appPath, 'tradingpost.db');
   let db = SQL.dbOpen(dbPath);
 
