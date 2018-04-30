@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import * as types from '../constants/ActionTypes';
+import { getUnitsByCouncilIPC } from '../actions/ipcHandler';
 
 export function councils(state = [], action) {
     switch (action.type) {
@@ -39,6 +40,12 @@ export function unittypeSelected(state = {}, action) {
 
 export function units(state = [], action) {
     switch (action.type) {
+        case types.RECEIVE_COUNCILS:
+            console.log('councils ', action.councils)
+            if (action.councils.length > 0) {
+                getUnitsByCouncilIPC('unitByCouncil', action.councils[0].orgkey);
+            }
+            return state;
         case types.RECEIVE_UNITS:
             return action.units;
         default:

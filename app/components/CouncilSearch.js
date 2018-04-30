@@ -44,14 +44,14 @@ class CouncilSearch extends React.Component {
               this.setState({ value: undefined }); // Reset selected value
             }}
               className={styles.box}>
-              {councils.map(council => <option key={council.id} value={council.id}>{council.council_name}</option>)}
+              {councils.map(council => <option key={council.id} value={council.id}>{council.nme}</option>)}
             </Input>
           </Col>
           <Col sm={{ size: 'auto', offset: 0 }}>
             <Label for="unittypeSelect">Unit Type</Label>
             <Input type="select" name="selectUnitType" id="unittypeSelected" onChange={(event) => unittypeSelected(event.target.value)}
               className={styles.box}>
-              {unittypes.map(unittype => <option key={unittype.id} value={unittype.id}>{unittype.unit_name}</option>)}
+              {unittypes.map(unittype => <option key={unittype.id} value={unittype.id}>{unittype.nme}</option>)}
             </Input>
           </Col >
           <Col sm={{ size: 'auto', offset: 0 }}>

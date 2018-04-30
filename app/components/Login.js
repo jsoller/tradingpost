@@ -32,6 +32,9 @@ class Login extends Component {
 
   handleSubmit = event => {
     getLocationUserIPC('locationUser', this.state.username, this.state.password);
+    // Below line stops the form from clearing
+    // And the user precieved behavior of having to login twice
+    event.preventDefault();
   }
 
   render() {
@@ -77,7 +80,7 @@ class Login extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  loginsuccessful: state.login.validsignon,
+  loginsuccessful: state.login.locationusers.length !== 0,
 })
 
 export default connect(

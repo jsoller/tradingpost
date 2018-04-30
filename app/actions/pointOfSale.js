@@ -1,4 +1,3 @@
-import shop from '../api/shop';
 import * as types from '../constants/ActionTypes';
 
 const receiveProducts = products => ({
@@ -39,15 +38,11 @@ export const checkout = products => (dispatch, getState) => {
 
   dispatch({
     type: types.CHECKOUT_REQUEST
-  })
-  shop.buyProducts(products, () => {
-    dispatch({
-      type: types.CHECKOUT_SUCCESS,
-      cart
-    })
-    // Replace the line above with line below to rollback on failure:
-    // dispatch({ type: types.CHECKOUT_FAILURE, cart })
-  })
+  });
+  dispatch({
+    type: types.CHECKOUT_SUCCESS,
+    cart
+  });
 }
 
 

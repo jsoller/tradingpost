@@ -1,6 +1,6 @@
 import { GET_LOCATIONUSERS, GET_LOCATION } from '../constants/ActionTypes';
 import { combineReducers } from 'redux';
-import { getProductsIPC, getLocationIPC } from '../actions/ipcHandler';
+import { getProductsIPC, getLocationIPC, getCouncilsIPC, getUnitTypesIPC, getUnitsByCouncilIPC } from '../actions/ipcHandler';
 
 export function locationusers(state = [], action) {
     switch (action.type) {
@@ -22,6 +22,8 @@ export function validsignon(state = false, action) {
             if (locationusers !== undefined && locationusers.length > 0) {
                 getProductsIPC('product', null);
                 getLocationIPC('location', locationusers[0].mdm_location_id)
+                getCouncilsIPC('council');
+                getUnitTypesIPC('unittype');
                 return true;
             }
             else {

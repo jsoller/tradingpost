@@ -5,10 +5,6 @@ export let startListener = (store) => {
     ipcRenderer.on(ipcTypes.IPC_TO_RENDER, (event, args) => {
         store.dispatch(args);
     });
-    getProductsIPC('product', null);
-    getCouncilsIPC('council');
-    getUnitTypesIPC('unittype');
-    getUnitsByCouncilIPC('unitByCouncil', ' ');
 }
 
 export let getProductsIPC = (productsquery, producttype) => {
