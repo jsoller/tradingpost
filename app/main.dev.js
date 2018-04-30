@@ -154,6 +154,20 @@ app.on('ready', async () => {
         locationusers
       });
     }
+    else if (args.todo === 'location') {
+      let locationid = ' ';
+      console.log('call getLocation from main ', args)
+      if (args.todotype !== undefined) {
+        locationid = args.todotype;
+      }
+
+      console.log('call getLocatiion from main')
+      const location = Object.values(model.getLocation(databaseLocation, locationid))[0];
+      event.sender.send(ipcTypes.IPC_TO_RENDER, {
+        type: types.GET_LOCATION,
+        location
+      });
+    }
     else if (args.todo === 'loadcsvFileName') {
       let csvFileName = args.csvFileName;
       //var stream = fs.createReadStream(csvFileName);
@@ -163,16 +177,119 @@ app.on('ready', async () => {
       var tableName = '';
       var tableColumns = [];
       var conversions = {
+        BSA_INVENTORY: {
+          ITEM_ID: (DATA) => {
+            return parseInt(data);
+          },
+          PRICE: (DATA) => {
+            return parseFloat(data);
+          }
+        },
+        COUNCIL: {
+          ACCEPT_EFT: (DATA) => {
+            return parseInt(data);
+          },
+          ACCEPT_SWIPE: (DATA) => {
+            return parseInt(data);
+          }
+        },
+        CATEGORY: {
+          FOLDER_ID: (DATA) => {
+            return parseInt(data);
+          }
+        },
+        DISTRICT: {
+          DISTRICT_ID: (DATA) => {
+            return parseInt(data);
+          },
+          CNCL_FLAG: (DATA) => {
+            return parseInt(data);
+          }
+        },
+        INVENTORY: {
+          LOCATION_INVENTORY_ID: (DATA) => {
+            return parseInt(data);
+          },
+          MDM_LOCATION_ID: (DATA) => {
+            return parseInt(data);
+          },
+          MDM_LKP_FOLDER_ID: (DATA) => {
+            return parseInt(data);
+          },
+          MDM_LKP_BSA_INVENTORY_ID: (DATA) => {
+            return data === null ? null : parseInt(data);
+          },
+          TRP_INVENTORY_ID: (DATA) => {
+            return data === null ? null : parseInt(data);
+          },
+          REMAIN_CNT: (DATA) => {
+            return parseInt(data);
+          },
+          QUICK_ITEM_FLAG: (DATA) => {
+            return parseInt(data);
+          },
+          QUICK_ITEM_SORT_ORDER: (DATA) => {
+            return parseInt(data);
+          },
+          RESTRICTED_ITEM_FLAG: (DATA) => {
+            return parseInt(data);
+          }
+        },
+        LOCATION: {
+          LOCATION_ID: (DATA) => {
+            return parseInt(data);
+          },
+          TAX_PERCENT: (DATA) => {
+            return Number.parseFloat(data);
+          },
+          PICKUP_FLAG: (DATA) => {
+            return parseInt(data);
+          }
+        },
+        LOCATION_USER: {
+          ID: (DATA) => {
+            return parseInt(data);
+          },
+          MDM_LOCATION_ID: (DATA) => {
+            return parseInt(data);
+          }
+        },
+        TRP_INVENTORY: {
+          TRP_INVENTORY_ID: (DATA) => {
+            return Number.parseInt(data);
+          },
+          PRICE: (DATA) => {
+            return parseFloat(data);
+          }
+        },
         UNIT: {
+          UNIT_ID: (data) => {
+            return parseInt(data);
+          },
+          MDM_DISTRICT_ID: (data) => {
+            return parseInt(data);
+          },
+          MDM_LKP_UNIT_TYPE_ID: (data) => {
+            return parseInt(data);
+          },
+          NBR: (data) => {
+            return parseInt(data);
+          },
           LDS_FLAG: (data) => {
             return data === '1' ? 1 : 0;
           },
+          FREEEZE_UNIT_FLAG: (data) => {
+            return data === '1' ? 1 : 0;
+          },
           FREEZE_UDA_FLAG: (data) => {
-            return data === '1';
+            return data === '1' ? 1 : 0;
           }
         },
         UNIT_TYPE: {
           ID: (data) => {
+            return parseInt(data);
+          },
+          PRIORITY_SORT_ORDER: (data) => {
             return parseInt(data);
           }
         }
@@ -186,6 +303,15 @@ app.on('ready', async () => {
           if (tableName !== data[0]) {
             tableName = data[0];
             tableColumns = data.map(column => column.toLowerCase());
+            // Data filtering
+            let index = tableColumns.findIndex((column) => column === 'id');
+            if (index !== -1) {
+              tableColumns[index] = tableName.toLowerCase() + '_id';
+            }
+            index = tableColumns.findIndex((column) => column === 'name');
+            if (index !== -1) {
+              tableColumns[index] = 'nme';
+            }
           } else {
             // Nope, this is new data!
             var newData = {};

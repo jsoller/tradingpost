@@ -14,10 +14,10 @@ import * as pages from '../constants/Pages';
 const checkProducts = (products) => {
   let checkneeded = false;
   products.forEach(product => {
-    if (product.checkId === 1) {
+    if (product.restricted_item_flag === 1) {
       checkneeded = true
     }
-    console.log("checkid ", product.checkId, ' checkneeded ', checkneeded)
+    console.log("restricted_item_flag ", product.restricted_item_flag, ' checkneeded ', checkneeded)
   });
   return checkneeded;
 };

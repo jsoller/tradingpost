@@ -19,7 +19,6 @@ const promptbox = () => (
             <button >Submit</button>
             <button >Cancel</button>
         </div>
-        {/* </div> */}
     </React.Fragment >
 );
 

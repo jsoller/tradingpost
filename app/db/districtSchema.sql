@@ -4,19 +4,19 @@ IF NOT EXISTS district
 (
      "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
      "district_id" INTEGER NOT NULL,
-     "district_name" TEXT NOT NULL,
+     "nme" TEXT NOT NULL,
      "district_nbr" TEXT NOT NULL,
      "cncl_flag" INTEGER NOT NULL,
      "district_abbr" TEXT NOT NULL,
      "mdm_council_id" TEXT NOT NULL
 );
 
-CREATE INDEX "districtnameindex" ON district (district_name
+CREATE INDEX "districtnameindex" ON district (nme
 COLLATE NOCASE ASC);
 CREATE INDEX "district_idindex" ON district (mdm_council_id
 COLLATE NOCASE ASC);
 INSERT INTO district
-  (district_id, district_name, district_nbr, cncl_flag, district_abbr, mdm_council_id)
+  (district_id, nme, district_nbr, cncl_flag, district_abbr, mdm_council_id)
 VALUES
   (212, "Diamond Dick", "1", 0, "DD", "BSA326"),
   (213, "Goldenrod", "2", 0, "GR", "BSA326"),

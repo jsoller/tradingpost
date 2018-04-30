@@ -5,17 +5,17 @@ IF NOT EXISTS products
      "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
      "upc" INTEGER NOT NULL,
      "category" TEXT NOT NULL,
-     "productname" TEXT NOT NULL,
+     "product_name" TEXT NOT NULL,
      "price" INTEGER NOT NULL,
-     "inventory" INTEGER NOT NULL,
-     "checkId" INTEGER not null
+     "remain_cnt" INTEGER NOT NULL,
+     "restricted_item_flag" INTEGER not null
 );
 CREATE INDEX "upcindex" ON products (upc
 COLLATE NOCASE ASC);
-CREATE INDEX "productnameindex" ON products (productname
+CREATE INDEX "productnameindex" ON products (product_name
 COLLATE NOCASE ASC);
 INSERT INTO products
-  (upc, category, productname, price, inventory, checkId)
+  (upc, category, product_name, price, remain_cnt, restricted_item_flag)
 VALUES
   (123451, "M", "DB iPad 4 Mini", 50001, 3, 1),
   (123452, "M", "DB H&M T-Shirt White", 1099, 10, 0),

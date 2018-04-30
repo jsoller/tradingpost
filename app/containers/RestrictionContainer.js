@@ -11,10 +11,10 @@ const checkProducts = (products) => {
   let checkneeded = 0;
   products.forEach(product => {
     for (let i = 0; i < product.quantity; i++) {
-      // if products.checkId = 1 {
+      // if products.restricted_item_flag = 1 {
       //   let checkneeded = 1
       // }
-      console.log("checkid ", product.checkId)
+      console.log("restricted_item_flag ", product.restricted_item_flag)
     }
   });
   return checkneeded;
@@ -39,11 +39,11 @@ const RestrictionContainer = ({ products }) => {
 RestrictionContainer.propTypes = {
   products: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
-    productname: PropTypes.string.isRequired,
+    nme: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    inventory: PropTypes.number.isRequired,
-    upc: PropTypes.number.isRequired,
-    checkId: PropTypes.number.isRequired
+    remain_cnt: PropTypes.number.isRequired,
+    upc_code: PropTypes.string.isRequired,
+    restricted_item_flag: PropTypes.number.isRequired
   })).isRequired,
   taxexempt: PropTypes.integer,
   tax: PropTypes.string,

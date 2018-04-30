@@ -17,9 +17,9 @@ const removeFromCartUnsafe = (productId, quantity) => ({
   quantity,
 })
 
-//the else allows the sale of products even if inventory states zero
+//the else allows the sale of products even if remaining count states zero
 export const addToCart = productId => (dispatch, getState) => {
-  if (getState().processproducts.byId[productId].inventory > 0) {
+  if (getState().processproducts.byId[productId].remain_cnt > 0) {
     dispatch(addToCartUnsafe(productId))
   }
   else {
@@ -50,8 +50,5 @@ export const checkout = products => (dispatch, getState) => {
   })
 }
 
-// export const restrictioncheck = products => (dispatch, getState) => {
-//      restrictioncheck = false;
-// }
 
 

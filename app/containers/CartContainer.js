@@ -14,11 +14,11 @@ const CartContainer = ({ products }) => (
 CartContainer.propTypes = {
   products: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
-    productname: PropTypes.string.isRequired,
+    nme: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     quantity: PropTypes.number.isRequired,
-    upc: PropTypes.number.isRequired,
-    checkId: PropTypes.number.isRequired,
+    upc_code: PropTypes.string.isRequired,
+    restricted_item_flag: PropTypes.number.isRequired,
   })).isRequired,
 }
 

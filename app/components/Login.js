@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 // import { getCouncilsIPC, getUnitsIPC } from '../actions/ipcHandler';
-import { getLocationUserIPC } from '../actions/ipcHandler';
+import { getLocationUserIPC, getProductsIPC, getLocationIPC } from '../actions/ipcHandler';
 import styles from './TradingPost.css';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -32,7 +32,6 @@ class Login extends Component {
 
   handleSubmit = event => {
     getLocationUserIPC('locationUser', this.state.username, this.state.password);
-    event.preventDefault();
   }
 
   render() {
@@ -78,7 +77,7 @@ class Login extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  loginsuccessful: state.login.locationusers.length !== 0,
+  loginsuccessful: state.login.validsignon,
 })
 
 export default connect(

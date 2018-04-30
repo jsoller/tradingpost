@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { removeFromCart } from '../actions/pointOfSale';
 import styles from '../components/TradingPost.css';
 
-const DisplayProduct = ({ price, quantity, productname, upc, checkId, productid, removeFromCart }) => (
+const DisplayProduct = ({ price, quantity, nme, upc, restricted_item_flag, productid, removeFromCart }) => (
   <div className={styles.cartdisplay}>
-    {upc} {productname} - &#36;{price}
+    {nme} - &#36;{price}
     <button
       className={styles.cartdisplaydel}
       onClick={() => removeFromCart(productid)}>DEL
@@ -17,10 +17,10 @@ const DisplayProduct = ({ price, quantity, productname, upc, checkId, productid,
 
 DisplayProduct.propTypes = {
   upc: PropTypes.number,
-  productname: PropTypes.string,
+  nme: PropTypes.string,
   price: PropTypes.number,
   quantity: PropTypes.number,
-  checkId: PropTypes.number,
+  restricted_item_flag: PropTypes.number,
   productid: PropTypes.number,
   removeFromCart: PropTypes.func.isRequired,
 }

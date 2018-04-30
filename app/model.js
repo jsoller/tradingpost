@@ -78,15 +78,30 @@ module.exports.initDb = function (appPath, callback) {
   let createDb = function (dbPath) {
     // Create a database.
     let db = new SQL.Database()
+    let bsainventoryquery = fs.readFileSync(    
+      path.join(__dirname, 'db', 'bsainventorySchema.sql'), 'utf8');
+    let bsainventoryresult = db.exec(bsainventoryquery)
+    let categoryquery = fs.readFileSync(
+      path.join(__dirname, 'db', 'categorySchema.sql'), 'utf8');
+    let categoryresult = db.exec(categoryquery);
     let locationuserquery = fs.readFileSync(
       path.join(__dirname, 'db', 'locationuserSchema.sql'), 'utf8');
     let locationuserresult = db.exec(locationuserquery)
     let councilquery = fs.readFileSync(
       path.join(__dirname, 'db', 'councilSchema.sql'), 'utf8');
-    let councilresult = db.exec(councilquery)
+    let councilresult = db.exec(councilquery);
+    let locationquery = fs.readFileSync(
+      path.join(__dirname, 'db', 'locationSchema.sql'), 'utf8');
+    let locationresult = db.exec(locationquery);
     let districtquery = fs.readFileSync(
       path.join(__dirname, 'db', 'districtSchema.sql'), 'utf8');
-    let districtresult = db.exec(districtquery)
+    let districtresult = db.exec(districtquery);
+    let inventoryquery = fs.readFileSync(
+      path.join(__dirname, 'db', 'inventorySchema.sql'), 'utf8');
+    let inventoryresult = db.exec(inventoryquery);
+    let trpinventoryquery = fs.readFileSync(
+      path.join(__dirname, 'db', 'trpinventorySchema.sql'), 'utf8');
+    let trpinventoryresult = db.exec(trpinventoryquery)
     let unittypequery = fs.readFileSync(
       path.join(__dirname, 'db', 'unittypeSchema.sql'), 'utf8');
     let unittyperesult = db.exec(unittypequery)
@@ -148,11 +163,12 @@ module.exports.getProducts = function (appPath) {
   let dbPath = path.join(appPath, 'tradingpost.db');
   let db = SQL.dbOpen(dbPath);
   if (db !== null) {
-    let query = 'SELECT * FROM `products` ORDER BY productname'
+    let query = 'SELECT * FROM `bsa_inventory` ORDER BY nme'
     try {
       let products = db.exec(query)
       if (products !== undefined && products.length > 0) {
         products = _rowsFromSqlDataObject(products[0])
+        // console.log('model getProducts ', products)
         return products;
       }
     } catch (error) {
@@ -168,7 +184,7 @@ module.exports.getProducts = function (appPath) {
 /*
   Populates the Product List by category.
 */
-module.exports.getProductsByType = function (appPath, categorytype = 'M') {
+module.exports.getProductsByType = function (appPath, categorytype = ' ') {
   let dbPath = path.join(appPath, 'tradingpost.db');
   let db = SQL.dbOpen(dbPath);
   console.log('start of getProductsByType in model', categorytype)
@@ -177,7 +193,7 @@ module.exports.getProductsByType = function (appPath, categorytype = 'M') {
       let products = [];
 
       // Get products by type
-      let statement = db.prepare('SELECT * FROM `products` WHERE category = ?', [categorytype])
+      let statement = db.prepare('SELECT * FROM `bsa_inventory` WHERE category = ?', [categorytype])
       while (statement.step()) {
         products.push(statement.getAsObject());
       }
@@ -209,7 +225,7 @@ module.exports.getProductsByName = function (appPath, searchname = ' ') {
       let products = [];
 
       // Get products by type
-      let statement = db.prepare('SELECT * FROM `products` WHERE productname like ? ORDER BY productname', [searchnameformat])
+      let statement = db.prepare('SELECT * FROM `bsa_inventory` WHERE nme like ? ORDER BY nme', [searchnameformat])
       while (statement.step()) {
         products.push(statement.getAsObject());
       }
@@ -268,7 +284,7 @@ module.exports.getUnitTypes = function (appPath) {
       let unittypes = [];
 
       // Get unit types
-      let statement = db.prepare('SELECT * FROM `unittype`')
+      let statement = db.prepare('SELECT * FROM `unit_type`')
       while (statement.step()) {
         unittypes.push(statement.getAsObject());
       }
@@ -289,10 +305,10 @@ module.exports.getUnitTypes = function (appPath) {
   Populates the Unit List by council
 */
 module.exports.getUnitsByCouncil = function (appPath, councilnum = '') {
-  console.log('councilnum', councilnum)
+
   let dbPath = path.join(appPath, 'tradingpost.db');
   let db = SQL.dbOpen(dbPath);
-  console.log('start of getUnitsByCouncil in model', councilnum)
+
   if (db !== null) {
     try {
       let units = [];
@@ -303,7 +319,6 @@ module.exports.getUnitsByCouncil = function (appPath, councilnum = '') {
         units.push(statement.getAsObject());
       }
 
-      console.log('getUnitsByCouncil units ', units[0], ' length ', units.length, ' councilnum ', councilnum)
       if (units !== undefined && units.length > 0) {
         return units;
       }
@@ -317,30 +332,55 @@ module.exports.getUnitsByCouncil = function (appPath, councilnum = '') {
   return [];
 }
 /*
-  Populates the Unit List by council
+  populates login information
 */
 module.exports.getLocationUsers = function (appPath, username = '', password = '') {
-  console.log('locationUser', username)
   let dbPath = path.join(appPath, 'tradingpost.db');
   let db = SQL.dbOpen(dbPath);
-  console.log('start of getLocationUsers in model username ', username, ' password ', password)
   if (db !== null) {
     try {
       let locationusers = [];
 
-      // Get units by council
-      let statement = db.prepare('SELECT * FROM `locationuser` WHERE username = ? and password = ?', [username, password])
+      // validate username and password
+      let statement = db.prepare('SELECT * FROM `location_user` WHERE username = ? and password = ?', [username, password])
       while (statement.step()) {
         locationusers.push(statement.getAsObject());
       }
 
-      console.log('getLocationUsers locationusers ', locationusers)
       if (locationusers !== undefined && locationusers.length > 0) {
         return locationusers;
       }
     } catch (error) {
       //  print the error
       console.log('Cannot read getLocationUsers database file.', error.message)
+    } finally {
+      SQL.dbClose(db, dbPath)
+    }
+  }
+  return [];
+}
+/*
+  populates location information
+*/
+module.exports.getLocation = function (appPath, locationid = '') {
+  let dbPath = path.join(appPath, 'tradingpost.db');
+  let db = SQL.dbOpen(dbPath);
+  if (db !== null) {
+    try {
+      let locations = [];
+console.log('getLocation ', locationid)
+      // validate username and password
+      let statement = db.prepare('SELECT * FROM `location` WHERE location_id = ?', [locationid])
+      while (statement.step()) {
+        locations.push(statement.getAsObject());
+      }
+console.log('after call ', locations)
+      if (locations !== undefined && locations.length > 0) {
+        return locations;
+      }
+    } catch (error) {
+      //  print the error
+      console.log('Cannot read getLocation database file.', error.message)
     } finally {
       SQL.dbClose(db, dbPath)
     }

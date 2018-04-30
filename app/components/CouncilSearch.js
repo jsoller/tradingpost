@@ -13,7 +13,7 @@ class CouncilSearch extends React.Component {
     const { units } = props;
 
     this.state = {
-      // units: units.map(unit => { return { value: unit.id, label: unit.unit_nbr + ' ' + unit.charter_org_name}; }),
+      // units: units.map(unit => { return { value: unit.id, label: unit.nbr + ' ' + unit.charter_org_name}; }),
       value: undefined,
     };
   }
@@ -31,7 +31,7 @@ class CouncilSearch extends React.Component {
       }
     };
 
-    const unitOptions = units.map(unit => { return { value: unit.id, label: unit.unit_nbr + ' ' + unit.charter_org_name }; });
+    const unitOptions = units.map(unit => { return { value: unit.id, label: unit.nbr + ' ' + unit.charter_org_name }; });
 
     return (
       <div className={styles.leftsidehdr}>
@@ -51,7 +51,7 @@ class CouncilSearch extends React.Component {
             <Label for="unittypeSelect">Unit Type</Label>
             <Input type="select" name="selectUnitType" id="unittypeSelected" onChange={(event) => unittypeSelected(event.target.value)}
               className={styles.box}>
-              {unittypes.map(unittype => <option key={unittype.id} value={unittype.id}>{unittype.unit_type_name}</option>)}
+              {unittypes.map(unittype => <option key={unittype.id} value={unittype.id}>{unittype.unit_name}</option>)}
             </Input>
           </Col >
           <Col sm={{ size: 'auto', offset: 0 }}>

@@ -10,11 +10,11 @@ const displayProducts = (products) => {
   products.forEach(product => {
     for (let i = 0; i < product.quantity; i++) {
       nodes.push(<DisplayProduct
-        upc={product.upc}
-        productname={product.productname}
-        price={product.price / 100}
+        upc_code={product.upc_code}
+        nme={product.nme}
+        price={product.price}
         quantity={product.quantity}
-        checkId={product.checkId}
+        restricted_item_flag={product.restricted_item_flag}
         key={"p" + product.id + "p" + i}
         productid={product.id}
       />);

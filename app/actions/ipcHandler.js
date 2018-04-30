@@ -73,3 +73,12 @@ export let getLocationUserIPC = (loginquery, username, password) => {
         }
     );
 }
+export let getLocationIPC = (locationquery, locationid) => {
+    ipcRenderer.send(
+        ipcTypes.IPC_TO_MAIN,
+        {
+            todo: locationquery,
+            todotype: locationid
+        }
+    );
+}

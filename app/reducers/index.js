@@ -6,13 +6,14 @@ import processproducts, * as fromQuickProducts from './processproducts';
 import keypad from './keypad';
 import payments from './payments';
 import login from './login';
+import { RECEIVE_UNITTYPES, GET_LOCATION } from '../constants/ActionTypes';
 
 const getAddedIds = state => fromCart.getAddedIds(state.cart)
 const getQuantity = (state, id) => fromCart.getQuantity(state.cart, id)
 // const checkRestriction = (hasRestriction, state) => fromCart.checkRestriction(hasRestriction, state.cart)
 const getProduct = (state, id) => fromQuickProducts.getProduct(state.processproducts, id)
 
-var taxRate = 675;
+// var taxRate = .0675;
 var taxInd = 1;
 var tax = 0;
 var total = 0;
@@ -26,7 +27,7 @@ export const getPreTaxTotal = state => {
 }
 
 export const getNumTax = state => {
-  let tax = (((getPreTaxTotal(state) * taxRate) * taxInd) / 1000000);
+  let tax = (((getPreTaxTotal(state) * state.taxRate) * taxInd));
   return tax;
 }
 
@@ -35,8 +36,8 @@ export const getTax = state => {
 }
 
 export const getTotal = state => {
-  let grandTotal = ((getPreTaxTotal(state) * 100) + (getNumTax(state) * 10000));
-  grandTotal = (grandTotal / 10000).toFixed(2);
+  let grandTotal = ((getPreTaxTotal(state)) + (getNumTax(state)));
+  grandTotal = (grandTotal).toFixed(2);
   return grandTotal
 }
 
@@ -48,10 +49,19 @@ export const getCartProducts = state => {
   )
 }
 
+export const taxRate = (state = 0.0, action) => {
+  switch (action.type) {
+    case GET_LOCATION:
+      return action.location.tax_percent;
+    default:
+      return state;
+  }
+}
+
 // export const getRestriction = state => {
 //   getAddedIds(state).map(id => {
-//     // checkRestriction(getProduct(state, id).checkId), false;
-//     let hasRestriction = getProduct(state, id).checkId
+//     // checkRestriction(getProduct(state, id).restricted_item_flag), false;
+//     let hasRestriction = getProduct(state, id).restricted_item_flag
 //     return hasRestriction;
 //   }
 //   )
@@ -64,6 +74,7 @@ const rootReducer = combineReducers({
   processproducts,
   router,
   login,
+  taxRate,
 });
 
 export default rootReducer;

@@ -6,7 +6,7 @@ IF NOT EXISTS unit
      "unit_id" INTEGER NOT NULL,
      "mdm_district_id" INTEGER NOT NULL,
      "mdm_lkp_unit_type_id" INTEGER NOT NULL,
-     "unit_nbr" INTEGER NOT NULL,
+     "nbr" INTEGER NOT NULL,
      "charter_org_name" TEXT NOT NULL,
      "lds_flag" INTEGER NOT NULL,
      "freeze_unit_flag" INTEGER not null,
@@ -16,12 +16,10 @@ IF NOT EXISTS unit
      "unit_name_full" TEXT NOT NULL
 );
 
-CREATE INDEX "unitnameindex" ON unit (mdm_lkp_unit_type_id
-COLLATE NOCASE ASC);
-CREATE INDEX "unitidindex" ON unit (unit_id
+CREATE INDEX "unitnameindex" ON unit (charter_org_name
 COLLATE NOCASE ASC);
 INSERT INTO unit
-  (unit_id, mdm_district_id, mdm_lkp_unit_type_id, unit_nbr, charter_org_name, lds_flag, freeze_unit_flag, freeze_unit_msg, freeze_uda_flag, freeze_uda_note, unit_name_full)
+  (unit_id, mdm_district_id, mdm_lkp_unit_type_id, nbr, charter_org_name, lds_flag, freeze_unit_flag, freeze_unit_msg, freeze_uda_flag, freeze_uda_note, unit_name_full)
 VALUES
 (12191, 212, 1, 122, "Norfolk Noon Kiwanis", 0, 0, " ", 0, " ", "Diamond Dick Pack 122"),
 (12192, 212, 1, 124, "Veterans of Foreign Wars", 0, 0, " ", 0, " ", "Diamond Dick Pack 124"),

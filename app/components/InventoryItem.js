@@ -4,14 +4,14 @@ import DisplayProduct from './DisplayProduct';
 import { removeFromCart } from '../actions/pointOfSale';
 import styles from '../components/TradingPost.css';
 
-//currently allowing products to be sold even if inventory states none left
-const InventoryItem = ({ product, onAddToCartClicked }) => (
+//currently allowing products to be sold even if remaining count states none left
+const remain_cntItem = ({ product, onAddToCartClicked }) => (
     <div className={styles.cartdisplay}>
-        {product.upc + ' ' + product.productname + '  -  current quantity = ' + product.inventory}
+        {product.upc_code + ' ' + product.nme + '  -  current quantity = ' + product.remain_cnt}
         <input
             className="form-control"
             type="number" step="1"
-            // value={product.inventory}
+            // value={product.remain_cnt}
         // placeholder=''
         // value = ""  //if this is set to null it resets what is entered so do not see letters typed
         // onChange={(searchentry) => getProductsIPC('productByName', searchentry.target.value)}
@@ -22,11 +22,11 @@ const InventoryItem = ({ product, onAddToCartClicked }) => (
     //   <div style={{ marginBottom: 10 }}>
     //     <button
     //       onClick={onAddToCartClicked}
-    //       // disabled={product.inventory > 0 ? '' : 'disabled'}
+    //       // disabled={product.remain_cnt > 0 ? '' : 'disabled'}
     //       >
-    //       {/* {product.inventory > 0 ? product.productname + " $" + (product.price / 100) : 
-    //        product.productname + ' Sold Out'} */}
-    //       {product.productname + '  -  current quantity = ' + product.inventory} 
+    //       {/* {product.remain_cnt > 0 ? product.nme + " $" + (product.price / 100) : 
+    //        product.nme + ' Sold Out'} */}
+    //       {product.nme + '  -  current quantity = ' + product.remain_cnt} 
     //     </button>
     //     <button
     //       className={styles.cartdisplaydel}
@@ -35,15 +35,15 @@ const InventoryItem = ({ product, onAddToCartClicked }) => (
     //    </div>
 )
 
-InventoryItem.propTypes = {
+remain_cntItem.propTypes = {
     product: PropTypes.shape({
-        productname: PropTypes.string.isRequired,
+        nme: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
-        inventory: PropTypes.number.isRequired,
-        upc: PropTypes.number.isRequired,
-        checkId: PropTypes.number.isRequired
+        remain_cnt: PropTypes.number.isRequired,
+        upc_code: PropTypes.string.isRequired,
+        restricted_item_flag: PropTypes.number.isRequired
     }).isRequired,
     onAddToCartClicked: PropTypes.func.isRequired
 }
 
-export default InventoryItem
+export default remain_cntItem

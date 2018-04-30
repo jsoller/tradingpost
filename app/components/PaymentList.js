@@ -12,11 +12,11 @@ const PaymentList = ({ products, taxexempt, tax, total, addToCart, checkneeded }
 PaymentList.propTypes = {
     products: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number.isRequired,
-        productname: PropTypes.string.isRequired,
+        nme: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
-        inventory: PropTypes.number.isRequired,
-        upc: PropTypes.number.isRequired,
-        checkId: PropTypes.number.isRequired
+        remain_cnt: PropTypes.number.isRequired,
+        upc_code: PropTypes.string.isRequired,
+        restricted_item_flag: PropTypes.number.isRequired
       })).isRequired,
       taxexempt: PropTypes.integer,
       tax: PropTypes.string,
