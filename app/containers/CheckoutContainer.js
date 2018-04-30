@@ -10,11 +10,6 @@ import { getCartProducts } from '../reducers';
 const CheckoutContainer = ({ products, checkout }) => (
   <Checkout
     products={products}
-    // tax={tax}
-    // total={total}
-    // onCheckoutClicked={() => RestrictionContainer(products)}
-  //onRestrictionClicked={() => restrictioncheck(products)}
-  // hasRestriction={hasRestriction}
   />
 )
 
