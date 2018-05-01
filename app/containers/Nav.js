@@ -23,7 +23,7 @@ class TPNav extends Component {
           <NavItem>
             <Link to={pages.INVENTORY}>Inventory</Link>
           </NavItem>
-          <NavItem onClick={() => getProductsIPC('productByType', 'F')}>
+          <NavItem onClick={() => getProductsIPC('productByType', 'CAMPING')}>
             <span>Refresh</span>
           </NavItem>
         </Nav>

@@ -168,10 +168,25 @@ app.on('ready', async () => {
         location
       });
     }
+    else if (args.todo === 'insertTransaction') {
+      let transSummary = {};
+      let transDetails = [];
+      console.log('call insertTransaction from main ', args)
+      if (args.transSummary) {
+        transSummary = args.transSummary;
+      }
+      if (args.transDetails) {
+        transDetails = args.transDetails;
+      };
+      console.log('call insertTransaction from main 2 ', databaseLocation, transSummary, transDetails)
+      model.insertTransactionData(databaseLocation, transSummary, transDetails);
+      event.sender.send(ipcTypes.IPC_TO_RENDER, {
+        type: types.CHECKOUT_REQUEST,
+      });
+    }
     else if (args.todo === 'loadcsvFileName') {
       let csvFileName = args.csvFileName;
       //var stream = fs.createReadStream(csvFileName);
-      console.log("main.dev csvfilename", csvFileName);
       fs.readFile(csvFileName, function (err, data) { console.log(new String(data)); });
       //add the fs csv logic
       var tableName = '';
@@ -330,7 +345,6 @@ app.on('ready', async () => {
               type: tableName.toLowerCase(),
               data: newData,
             };
-            console.log(insertObj);
             // call an insert function to load the table
             model.insertData(databaseLocation, insertObj);
           }

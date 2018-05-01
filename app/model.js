@@ -78,6 +78,12 @@ module.exports.initDb = function (appPath, callback) {
   let createDb = function (dbPath) {
     // Create a database.
     let db = new SQL.Database()
+    let transactionsummaryquery = fs.readFileSync(    
+      path.join(__dirname, 'db', 'transactionsummarySchema.sql'), 'utf8');
+    let transactionsummaryresult = db.exec(transactionsummaryquery)
+    let transactiondetailquery = fs.readFileSync(    
+      path.join(__dirname, 'db', 'transactiondetailSchema.sql'), 'utf8');
+    let transactiondetailresult = db.exec(transactiondetailquery)
     let bsainventoryquery = fs.readFileSync(    
       path.join(__dirname, 'db', 'bsainventorySchema.sql'), 'utf8');
     let bsainventoryresult = db.exec(bsainventoryquery)
@@ -384,6 +390,36 @@ console.log('after call ', locations)
   }
   return [];
 }
+/*
+  Insert data into tables
+*/
+module.exports.insertTransactionData = function (appPath, transSummary, transDetails) {
+  let dbPath = path.join(appPath, 'tradingpost.db');
+  let db = SQL.dbOpen(dbPath);
+
+  if (db !== null) {
+    try {
+
+      console.log("transSummary", transSummary)
+      let summarysql = 'INSERT INTO `transactionsummary` (' + Object.keys(transSummary).join(",") + ') VALUES (' + Object.values(transSummary).map(function (value) { return "?" }).join(",") + ')';
+           
+      let summarystatement = db.prepare(summarysql);
+      summarystatement.run(Object.values(transSummary));
+
+      let detailsql = 'INSERT INTO `transactiondetail` (' + Object.keys(transDetails[0]).join(",") + ') VALUES (' + Object.values(transDetails[0]).map(function (value) { return "?" }).join(",") + ')';
+      console.log("detailsql", detailsql)  
+      let detailstatement = db.prepare(detailsql);
+      console.log("detailstatement", detailstatement)
+      detailstatement.run(Object.values(transDetails[0]));
+    } catch (error) {
+      //  print the error
+      console.log('Cannot insert data into database transactionsummary', type, error.message)
+    } finally {
+      SQL.dbClose(db, dbPath)
+    }
+  }
+}
+
 /*
   Insert data into tables
 */

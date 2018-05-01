@@ -7,6 +7,17 @@ export let startListener = (store) => {
     });
 }
 
+export let insertTransactionIPC = (transactionSummary, transactionDetail) => {
+    ipcRenderer.send(
+        ipcTypes.IPC_TO_MAIN,
+        {
+            todo: 'insertTransaction',
+            transSummary: transactionSummary,
+            transDetails: transactionDetail,
+        }
+    )
+}
+
 export let getProductsIPC = (productsquery, producttype) => {
     ipcRenderer.send(
         ipcTypes.IPC_TO_MAIN,

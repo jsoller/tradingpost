@@ -9,7 +9,7 @@ export function cashpayment(state = '', action) {
                 return state;
             }
             else if (selectedValue === 'CLEAR') {
-                return '';
+                return '0';
             }
             else {
                 return state + selectedValue;

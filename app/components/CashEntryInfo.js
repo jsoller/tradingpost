@@ -14,13 +14,13 @@ const CashEntryInfo = ({ title, cashpayment, amountEntered, total, products, che
         return (<Col><Button onClick={() => amountEntered(number)}>{displaynumber}</Button></Col>);
     };
     const btnEnter = (number, displaynumber) => {
-        return (<Col><Button onClick={() => checkout(products)}>{displaynumber}</Button></Col>);
+        return (<Col><Button onClick={() => checkout("SALE", "CASH", products)}>{displaynumber}</Button></Col>);
     };
     return (
         <div className={styles.leftsidehdr}>
             <h3 >{title}</h3>
-            <div> &#36;{cashpayment / 100}</div>
-            <div> &#36;{(cashpayment - (total * 100)) / 100} CHANGE</div>
+            <div> &#36;{(cashpayment / 100).toFixed(2)}</div>
+            <div> &#36;{((cashpayment - (total * 100)) / 100).toFixed(2)} CHANGE</div>
             <Row>
                 {btnNum(2000, "$20")}
                 {btnNum(1000, "$10")}

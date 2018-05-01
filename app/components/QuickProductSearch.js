@@ -7,8 +7,8 @@ const QuickProductSearch = ({ title }) => (
   <div className={styles.leftsidehdr}>
     {/* <h3 >{title}</h3> */}
     <div>
-      <button onClick={() => getProductsIPC('productByType', 'M')}>merchandise</button>
-      <button onClick={() => getProductsIPC('productByType', 'F')}>food</button>
+      <button onClick={() => getProductsIPC('productByType', 'CAMPING')}>CAMPING</button>
+      <button onClick={() => getProductsIPC('productByType', 'PATCHES')}>PATCHES</button>
     </div>
   </div>
 )
