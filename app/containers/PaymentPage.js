@@ -1,12 +1,12 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
-import CouncilContainer from './CouncilContainer';
 import CheckPaymentContainer from './CheckPaymentContainer';
 import CreditCardContainer from './CreditCardContainer';
 import CartTotalContainer from './CartTotalContainer';
 import styles from '../components/TradingPost.css';
 import CashPaymentContainer from './CashPaymentContainer';
+import CouncilSearch from '../components/payments/CouncilSearch';
 
 const PaymentPage = () => (
   <Container>
@@ -14,7 +14,7 @@ const PaymentPage = () => (
       <h2 >Payment</h2>
     </Row>
     <Row>
-      <CouncilContainer />
+      <CouncilSearch />
     </Row>
     <Row>
       <CheckPaymentContainer />
@@ -28,11 +28,11 @@ const PaymentPage = () => (
     <Row>
       <Col>
       </Col>
-    <Col>
-    </Col>
-    <Col>
-      <CashPaymentContainer />
-    </Col>
+      <Col>
+      </Col>
+      <Col>
+        <CashPaymentContainer />
+      </Col>
     </Row>
   </Container >
 )

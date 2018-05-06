@@ -1,24 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Label, Input, Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
-import styles from './TradingPost.css';
-import { councilSelected, unittypeSelected, unitSelected } from '../actions/payments';
+import styles from '../TradingPost.css';
+import { councilSelected, unittypeSelected, unitSelected } from '../../actions/payments';
 import Select from 'react-select';
 
 class CouncilSearch extends React.Component {
   constructor(props) {
     super(props);
-    const { units } = props;
 
     this.state = {
-      // units: units.map(unit => { return { value: unit.id, label: unit.nbr + ' ' + unit.charter_org_name}; }),
       value: undefined,
     };
   }
-  // const CouncilSearch = ({ title, councils, councilSelected, unittypes, unittypeSelected, units, unitSelected, councilSelectedId }) => {
+
   render() {
-    const { title, councils, councilSelected, unittypes, unittypeSelected, units, unitSelected, councilSelectedId } = this.props;
+    const { councils, councilSelected, unittypes, unittypeSelected, units, unitSelected, councilSelectedId } = this.props;
     const c = councils.find(council => council.id == councilSelectedId);
     const orgkey = c === undefined ? "" : c.orgkey;
 
@@ -34,7 +31,7 @@ class CouncilSearch extends React.Component {
 
     return (
       <div className={styles.leftsidehdr}>
-        <h4 >{title}</h4>
+        <h4>Unit Account Payment</h4>
         <Row>
           <Col sm={{ size: 'auto', offset: 0 }}>
             <Label for="councilselect">Council</Label>
@@ -75,10 +72,6 @@ class CouncilSearch extends React.Component {
     );
   }
 }
-
-// CouncilSearch.propTypes = {
-//  title: PropTypes.string.isRequired
-//} 
 
 const mapStateToProps = (state) => ({
   councils: state.payments.councils,
