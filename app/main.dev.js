@@ -12,7 +12,7 @@
  */
 import { app, BrowserWindow, ipcMain } from 'electron';
 import MenuBuilder from './menu';
-import * as model from './model';
+import * as model from './server/model';
 import * as ipcTypes from './constants/IpcTypes';
 import Server from './server/server';
 

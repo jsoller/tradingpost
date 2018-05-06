@@ -1,4 +1,4 @@
-import * as model from '../model';
+import * as model from './model';
 import * as ipcTypes from '../constants/IpcTypes';
 import * as types from '../constants/ActionTypes';
 import * as serverTypes from '../constants/ServerTypes';
