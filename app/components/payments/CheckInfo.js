@@ -1,12 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Row, Col, Input } from 'reactstrap';
-// import { getCouncilsIPC, getUnitsIPC } from '../actions/ipcHandler';
-import styles from './TradingPost.css';
+import styles from '../TradingPost.css';
 
 const CheckInfo = ({ title }) => (
     <div className={styles.leftsidehdr}>
-        <h3 >{title}</h3>
+        <h3>Check Payment</h3>
         <Row>
             <Col>
                 <Input type="text" name="text" id="checkNameText" placeholder="check name" />

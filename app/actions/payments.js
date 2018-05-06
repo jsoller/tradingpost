@@ -6,9 +6,9 @@ export const councilSelected = councilid => (dispatch, getState) => {
         type: types.COUNCIL_SELECTED,
         councilid,
     });
-    getUnitTypesIPC('unittype');
+    getUnitTypesIPC();
     let council = getState().payments.councils.find(council => councilid == council.id);
-    getUnitsByCouncilIPC('unitByCouncil', council.orgkey);
+    getUnitsByCouncilIPC(council.orgkey);
 }
 
 export const unittypeSelected = unittype => (dispatch, getState) => {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
-// import { getCouncilsIPC, getUnitsIPC } from '../actions/ipcHandler';
-import { getLocationUserIPC, getProductsIPC, getLocationIPC } from '../actions/ipcHandler';
+import { getLocationUserIPC, } from '../actions/ipcHandler';
 import styles from './TradingPost.css';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -31,7 +30,7 @@ class Login extends Component {
   }
 
   handleSubmit = event => {
-    getLocationUserIPC('locationUser', this.state.username, this.state.password);
+    getLocationUserIPC(this.state.username, this.state.password);
     // Below line stops the form from clearing
     // And the user precieved behavior of having to login twice
     event.preventDefault();
