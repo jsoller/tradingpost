@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Label, Input, Row, Col } from 'reactstrap';
-import { getCouncilsIPC, getUnitTypesIPC, getUnitsByCouncilIPC } from '../actions/ipcHandler';
 import { connect } from 'react-redux';
 import styles from './TradingPost.css';
 import { councilSelected, unittypeSelected, unitSelected } from '../actions/payments';

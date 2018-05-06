@@ -43,7 +43,7 @@ export function units(state = [], action) {
         case types.RECEIVE_COUNCILS:
             console.log('councils ', action.councils)
             if (action.councils.length > 0) {
-                getUnitsByCouncilIPC('unitByCouncil', action.councils[0].orgkey);
+                getUnitsByCouncilIPC(action.councils[0].orgkey);
             }
             return state;
         case types.RECEIVE_UNITS:

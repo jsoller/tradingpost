@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
-// import { getCouncilsIPC, getUnitsIPC } from '../actions/ipcHandler';
 import { loadCSVFileNameIPC, saveCSVFileNameIPC } from '../actions/ipcHandler';
 import styles from './TradingPost.css';
 import { remote } from 'electron';

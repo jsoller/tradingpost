@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getProductsIPC } from '../actions/ipcHandler';
+import { getProductsByNameIPC } from '../actions/ipcHandler';
 import styles from './TradingPost.css';
 
 const InventorySearch = ({ title }) => (
@@ -9,7 +9,7 @@ const InventorySearch = ({ title }) => (
       <input className="form-control"
         placeholder="search field"
         // value = ""  //if this is set to null it resets what is entered so do not see letters typed
-        onChange={(searchentry) => getProductsIPC('productByName', searchentry.target.value)}
+        onChange={(searchentry) => getProductsByNameIPC(searchentry.target.value)}
       /*  instead of calling getProductsIPC call an action like searchchange & pass searchentry
       pass in a searchentry value to quickproductsearch and then reset it when addtocart*/
       />

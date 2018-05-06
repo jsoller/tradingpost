@@ -1,52 +1,62 @@
 import * as model from '../model';
 import * as ipcTypes from '../constants/IpcTypes';
 import * as types from '../constants/ActionTypes';
+import * as serverTypes from '../constants/ServerTypes';
 import * as fs from 'fs';
 import * as csv from 'fast-csv';
 
 const debug = (...args) => {
     // Is debug?
     if (true) {
-        console.log('processer.js', ...args);
+        console.log('[server.js] ::', ...args);
     }
 }
 
 export default class Server {
     constructor(databaseLocation) {
         this._databaseLocation = databaseLocation;
+
+        // this._handlers is a Map<String, Function> of
+        // Key (event type) to Value (handling function)
         this._handlers = {
-            product: Server.getProducts,
-            productByType: Server.getProductsByType,
-            productByName: Server.getProductsByName,
-            council: Server.getCouncil,
-            unittype: Server.getUnitType,
-            unitByCouncil: Server.getUnitByCouncil,
-            locationUser: Server.getLocationUser,
-            location: Server.getLocation,
-            insertTransaction: Server.insertTransaction,
-            loadcsvFileName: Server.loadCsvFileName,
-            savecsvFileName: Server.saveCSVFileName,
+            [serverTypes.PRODUCT]: Server.getProducts,
+            [serverTypes.PRODUCT_BY_TYPE]: Server.getProductsByType,
+            [serverTypes.PRODUCT_BY_NAME]: Server.getProductsByName,
+            [serverTypes.COUNCIL]: Server.getCouncil,
+            [serverTypes.UNIT_TYPE]: Server.getUnitType,
+            [serverTypes.UNIT_BY_COUNCIL]: Server.getUnitByCouncil,
+            [serverTypes.LOCATION_USER]: Server.getLocationUser,
+            [serverTypes.LOCATION]: Server.getLocation,
+            [serverTypes.INSERT_TRANSACTION]: Server.insertTransaction,
+            [serverTypes.LOAD_CSV_FILENAME]: Server.loadCsvFileName,
+            [serverTypes.SAVE_CSV_FILENAME]: Server.saveCSVFileName,
         };
     }
 
     /**
      * Handle an IPC event with some args
      * 
+     * Examples:
+     * args = {
+     *  type: "some type",
+     *  ...other_data
+     * }
+     * 
      * @param {Object} event from IPC that triggered this request
      * @param {Object} args data for that IPC event
      */
     handleIPC(event, args) {
-        if (!args && !args.todo) {
+        if (!args && !args.type) {
             debug("Nothing from IPC to handle");
             return;
         }
         debug('args is', args);
 
-        const handler = this._handlers[args.todo];
+        const handler = this._handlers[args.type];
         if (handler) {
             handler(event, args, this._databaseLocation);
         } else {
-            debug('the args.todo', args.todo, 'hasn\'t been configured yet');
+            debug('the args.type', args.type, 'hasn\'t been configured yet');
         }
     }
 
@@ -59,11 +69,11 @@ export default class Server {
     }
 
     static getProductsByType(event, args, databaseLocation) {
-        const prodType = (args.todotype !== undefined)
-            ? args.todotype
+        const prodType = (args.productType !== undefined)
+            ? args.productType
             : 'F';
-        debug('call getProductsByType from main', prodtype);
-        const products = Object.values(model.getProductsByType(databaseLocation, prodtype));
+        debug('call getProductsByType from main', prodType);
+        const products = Object.values(model.getProductsByType(databaseLocation, prodType));
         event.sender.send(ipcTypes.IPC_TO_RENDER, {
             type: types.RECEIVE_PRODUCTS,
             products
@@ -71,8 +81,8 @@ export default class Server {
     }
 
     static getProductsByName(event, args, databaseLocation) {
-        const prodname = (args.todotype !== undefined)
-            ? args.todotype
+        const prodname = (args.productName !== undefined)
+            ? args.productName
             : ' ';
         debug('call getProductsByName from main', prodname)
         const products = Object.values(model.getProductsByName(databaseLocation, prodname));
@@ -102,8 +112,8 @@ export default class Server {
 
     static getUnitByCouncil(event, args, databaseLocation) {
         debug('call getUnitsByCouncil from main')
-        const councilnum = (args.todotype !== undefined)
-            ? args.todotype
+        const councilnum = (args.councilNumber !== undefined)
+            ? args.councilNumber
             : ' ';
         debug('councilnum', councilnum)
         const units = Object.values(model.getUnitsByCouncil(databaseLocation, councilnum));
@@ -115,11 +125,11 @@ export default class Server {
 
     static getLocationUser(event, args, databaseLocation) {
         debug('call getLocationUsers from main ', args)
-        const username = (args.todotype !== undefined)
-            ? args.todotype
+        const username = (args.username !== undefined)
+            ? args.username
             : ' ';
-        const password = (args.todotype2 !== undefined)
-            ? args.todotype2
+        const password = (args.password !== undefined)
+            ? args.password
             : ' ';
         debug('call getLocatiionUsers from main')
         const locationusers = Object.values(model.getLocationUsers(databaseLocation, username, password));
@@ -131,8 +141,8 @@ export default class Server {
 
     static getLocation(event, args, databaseLocation) {
         debug('call getLocation from main ', args)
-        const locationid = (args.todotype !== undefined)
-            ? args.todotype
+        const locationid = (args.locationId !== undefined)
+            ? args.locationId
             : ' ';
         debug('call getLocatiion from main')
         const location = Object.values(model.getLocation(databaseLocation, locationid))[0];

@@ -69,7 +69,7 @@ app.on('ready', async () => {
 
   const databaseLocation = app.getPath('userData');
   console.log('main.dev.js', 'database location is "' + databaseLocation + '"');
-  ipcMain.on(ipcTypes.IPC_TO_MAIN, (event, args) => {
+  ipcMain.on(ipcTypes.IPC_TO_SERVER, (event, args) => {
     // Cannot init Server once as it seems to not keep initialzed data
     const server = new Server(databaseLocation);
     server.handleIPC(event, args);

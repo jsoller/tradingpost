@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, Input } from 'reactstrap';
-// import { getCouncilsIPC, getUnitsIPC } from '../actions/ipcHandler';
 import styles from './TradingPost.css';
 
 const CheckInfo = ({ title }) => (

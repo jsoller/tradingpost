@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getProductsIPC } from '../actions/ipcHandler';
 import styles from './TradingPost.css';
 
 const QuickProductsList = ({ children }) => (

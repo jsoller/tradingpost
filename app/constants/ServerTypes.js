@@ -1,0 +1,11 @@
+export const PRODUCT = 'PRODUCT';
+export const PRODUCT_BY_TYPE = 'PRODUCT_BY_TYPE';
+export const PRODUCT_BY_NAME = 'PRODUCT_BY_NAME';
+export const COUNCIL = 'COUNCIL';
+export const UNIT_TYPE = 'UNIT_TYPE';
+export const UNIT_BY_COUNCIL = 'UNIT_BY_COUNCIL';
+export const LOCATION_USER = 'LOCATION_USER';
+export const LOCATION = 'LOCATION';
+export const INSERT_TRANSACTION = 'INSERT_TRANSACTION';
+export const LOAD_CSV_FILENAME = 'LOAD_CSV_FILENAME';
+export const SAVE_CSV_FILENAME = 'SAVE_CSV_FILENAME';

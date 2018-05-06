@@ -7,7 +7,7 @@ import { getProductsIPC } from '../actions/ipcHandler';
 
 class InventoryPage extends React.Component {
     componentDidMount() {
-        getProductsIPC('product', null);
+        getProductsIPC();
     }
 
     render() {
