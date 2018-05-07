@@ -28,7 +28,7 @@ export default class Server {
             [serverTypes.LOCATION_USER]: Server.getLocationUser,
             [serverTypes.LOCATION]: Server.getLocation,
             [serverTypes.INSERT_TRANSACTION]: Server.insertTransaction,
-            [serverTypes.LOAD_CSV_FILENAME]: Server.loadCsvFileName,
+            [serverTypes.LOAD_CSV_FILENAME]: Server.loadCSVFileName,
             [serverTypes.SAVE_CSV_FILENAME]: Server.saveCSVFileName,
         };
     }
@@ -51,6 +51,7 @@ export default class Server {
             return;
         }
         debug('args is', args);
+        debug('handlers', this._handlers);
 
         const handler = this._handlers[args.type];
         if (handler) {

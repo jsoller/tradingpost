@@ -16,17 +16,17 @@ import { connect } from 'react-redux';
 const QuickProductSearch = ({ categories }) => {
   // render() {
   //   const { categories } = this.props;
+  let categoryButtons = [];
+  categories.forEach((category, i) => {
+    categoryButtons.push(<button key={i} onClick={() => getCategoriesIPC()}>{category.category}</button>);
+  });
 
   console.log('categories', categories);
 
   return (
     // < div >{cat1}</div>
     <div>
-      <div>
-        {categories.forEach((category, i) => {
-          return <button key={i} onClick={() => getCategoriesIPC()}>a {category.category}</button>;
-        })}
-      </div>
+      {categoryButtons}
       <button onClick={() => getCategoriesIPC()}>categories{1}</button>
     </div >
   );
