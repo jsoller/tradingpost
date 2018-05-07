@@ -49,10 +49,9 @@ export const getProductsByNameIPC = (productName) => {
     });
 }
 
-export const getProductsByTypeIPC = (productType) => {
+export const getCategoriesIPC = () => {
     toServer({
-        type: serverTypes.PRODUCT_BY_TYPE,
-        productType,
+        type: serverTypes.CATEGORIES,
     });
 }
 

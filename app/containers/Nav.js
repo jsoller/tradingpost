@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { getProductsByTypeIPC } from '../actions/ipcHandler';
+import { getCategoriesIPC } from '../actions/ipcHandler';
 import { Navbar, Nav, NavItem } from 'reactstrap';
 import * as pages from '../constants/Pages';
 import { connect } from 'react-redux';
@@ -23,7 +23,7 @@ class TPNav extends Component {
           <NavItem>
             <Link to={pages.INVENTORY}>Inventory</Link>
           </NavItem>
-          <NavItem onClick={() => getProductsByTypeIPC('CAMPING')}>
+          <NavItem onClick={() => getCategoriesIPC()}>
             <span>Refresh</span>
           </NavItem>
         </Nav>

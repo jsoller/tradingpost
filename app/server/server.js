@@ -20,7 +20,7 @@ export default class Server {
         // Key (event type) to Value (handling function)
         this._handlers = {
             [serverTypes.PRODUCT]: Server.getProducts,
-            [serverTypes.PRODUCT_BY_TYPE]: Server.getProductsByType,
+            [serverTypes.CATEGORIES]: Server.getCategories,
             [serverTypes.PRODUCT_BY_NAME]: Server.getProductsByName,
             [serverTypes.COUNCIL]: Server.getCouncil,
             [serverTypes.UNIT_TYPE]: Server.getUnitType,
@@ -68,15 +68,15 @@ export default class Server {
         });
     }
 
-    static getProductsByType(event, args, databaseLocation) {
-        const prodType = (args.productType !== undefined)
-            ? args.productType
-            : 'F';
-        debug('call getProductsByType from main', prodType);
-        const products = Object.values(model.getProductsByType(databaseLocation, prodType));
+    static getCategories(event, args, databaseLocation) {
+        // const prodType = (args.productType !== undefined)
+        //     ? args.productType
+        //     : 'F';
+        debug('call getCategories from server');
+        const categories = Object.values(model.getCategories(databaseLocation));
         event.sender.send(ipcTypes.IPC_TO_RENDER, {
-            type: types.RECEIVE_PRODUCTS,
-            products
+            type: types.RECEIVE_CATEGORIES,
+            categories
         });
     }
 

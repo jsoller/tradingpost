@@ -1,6 +1,6 @@
-import { GET_LOCATIONUSERS, GET_LOCATION } from '../constants/ActionTypes';
+import { GET_LOCATIONUSERS, GET_LOCATION, RECEIVE_CATEGORIES } from '../constants/ActionTypes';
 import { combineReducers } from 'redux';
-import { getProductsIPC, getLocationIPC, getCouncilsIPC, getUnitTypesIPC } from '../actions/ipcHandler';
+import { getProductsIPC, getLocationIPC, getCouncilsIPC, getUnitTypesIPC, getCategoriesIPC } from '../actions/ipcHandler';
 
 export function locationusers(state = [], action) {
     switch (action.type) {
@@ -24,6 +24,7 @@ export function validsignon(state = false, action) {
                 getLocationIPC(locationusers[0].mdm_location_id)
                 getCouncilsIPC();
                 getUnitTypesIPC();
+                getCategoriesIPC();
                 return true;
             }
             else {
@@ -42,9 +43,18 @@ export function location(state = {}, action) {
             return state;
     }
 }
+export function categories(state = [], action) {
+    switch (action.type) {
+        case RECEIVE_CATEGORIES:
+            return [...action.categories];
+        default:
+            return state;
+    }
+}
 
 export default combineReducers({
     locationusers,
     validsignon,
     location,
+    categories,
 })

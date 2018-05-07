@@ -1,20 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getProductsByTypeIPC } from '../actions/ipcHandler';
+import { getCategoriesIPC } from '../actions/ipcHandler';
 import styles from './TradingPost.css';
+import { connect } from 'react-redux';
 
-const QuickProductSearch = ({ title }) => (
-  <div className={styles.leftsidehdr}>
-    {/* <h3 >{title}</h3> */}
+// class QuickProductSearch extends React.Component {
+//   constructor(props) {
+//     super(props);
+
+//     // this.state = {
+//     //   value: undefined,
+//     // };
+//   }
+
+const QuickProductSearch = ({ categories }) => {
+  // render() {
+  //   const { categories } = this.props;
+
+  console.log('categories', categories);
+
+  return (
+    // < div >{cat1}</div>
     <div>
-      <button onClick={() => getProductsByTypeIPC('CAMPING')}>CAMPING</button>
-      <button onClick={() => getProductsByTypeIPC('PATCHES')}>PATCHES</button>
-    </div>
-  </div>
-)
+      <div>
+        {categories.forEach((category, i) => {
+          return <button key={i} onClick={() => getCategoriesIPC()}>a {category.category}</button>;
+        })}
+      </div>
+      <button onClick={() => getCategoriesIPC()}>categories{1}</button>
+    </div >
+  );
+}
+// }
 
 // QuickProductSearch.propTypes = {
 //   title: PropTypes.string.isRequired
 // }
 
-export default QuickProductSearch
+
+const mapStateToProps = (state) => ({
+  categories: state.login.categories,
+})
+
+export default connect(
+  mapStateToProps,
+  {}
+)(QuickProductSearch)
