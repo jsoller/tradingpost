@@ -1,5 +1,5 @@
 export const PRODUCT = 'PRODUCT';
-export const PRODUCT_BY_TYPE = 'PRODUCT_BY_TYPE';
+export const CATEGORIES = 'CATEGORIES';
 export const PRODUCT_BY_NAME = 'PRODUCT_BY_NAME';
 export const COUNCIL = 'COUNCIL';
 export const UNIT_TYPE = 'UNIT_TYPE';
